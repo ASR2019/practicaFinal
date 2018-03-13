@@ -1,0 +1,4 @@
+asr\proyectoFinal\servlets\Controller.class
+asr\proyectoFinal\dominio\Palabra.class
+asr\proyectoFinal\dao\VCAPHelper.class
+asr\proyectoFinal\dao\CloudantPalabraStore.class
