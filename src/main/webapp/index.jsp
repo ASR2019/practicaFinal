@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Proyecto ASR...</title>
+<title>Proyecto ASR</title>
 </head>
 <body>
 <h1>Ejemplo de Proyecto de ASR después de integrar DevOps...</h1>
+<hr />
 <p>Opciones:</p>
 <ul>
 <li><a href="listar">Listar</a></li>
