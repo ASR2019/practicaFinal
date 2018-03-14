@@ -7,7 +7,7 @@
 <title>Proyecto ASR</title>
 </head>
 <body>
-<h1>Ejemplo de Proyecto de ASR con Cloudant</h1>
+<h1>Ejemplo de Proyecto de ASR con Cloudant ahora con DevOps</h1>
 <hr />
 <p>Opciones:</p>
 <ul>
