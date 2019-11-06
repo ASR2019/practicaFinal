@@ -9,7 +9,7 @@
 <body>
 <h1>Ejemplo de Proyecto de ASR con Cloudant ahora con DevOps</h1>
 <hr />
-<p>Opciones <b>CLOUDANT o YYYYYY n IBM Cloud</b>:</p>
+<p>ZZZZZ Opciones <b>CLOUDANT o ZZZZZZ n IBM Cloud</b>:</p>
 <ul>
 <li><a href="listar">Listar</a></li>
 <li><a href="insertar?palabra=hola">Insertar</a></li>
