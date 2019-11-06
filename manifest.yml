@@ -1,5 +1,5 @@
 ---
-applications:
+applications: 
 - name: asrTomcatEjemploCloudant
   random-route: false
   path: target/asrTomcatEjemploCloudant.war
