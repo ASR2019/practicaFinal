@@ -7,3 +7,7 @@ applications:
   instances: 1
   host: stock-prediction
   domain: eu-gb.mybluemix.net
+  services:
+  - asrCloudant
+  - asrNaturalLanguageUnderstanding
+  - asrWatson
