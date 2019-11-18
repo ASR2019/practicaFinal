@@ -1,11 +1,11 @@
 ---
 applications:
-- name: asrTomcatEjemploCloudant
+- name: Practica Final ASR
   random-route: false
-  path: target/asrTomcatEjemploCloudant.war
+  path: target/practicaFinal.war
   memory: 640M
   instances: 1
-  host: asrTomcatEjemploCloudant
+  host: stock-prediction
   domain: eu-gb.mybluemix.net
   services:
-  - asrDCBCloudantNoSQL
+  - asrCloudantNoSQL
