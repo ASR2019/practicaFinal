@@ -1,4 +1,4 @@
-package asr.proyectoFinal.servlets;
+package asr.proyectoFinal.controllers;
 
 //import java.io.BufferedWriter;
 //import java.io.File;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import asr.proyectoFinal.dao.CloudantPalabraStore;
-import asr.proyectoFinal.dominio.Palabra;
+import asr.proyectoFinal.models.Word;
+import asr.proyectoFinal.services.CloudantService;
 
 /**
  * Servlet implementation class Controller
@@ -33,7 +33,7 @@ public class Controller extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<html><head><meta charset=\"UTF-8\"></head><body>");
 		
-		CloudantPalabraStore store = new CloudantPalabraStore();
+		CloudantService store = new CloudantService();
 		System.out.println(request.getServletPath());
 		switch(request.getServletPath())
 		{
@@ -45,7 +45,7 @@ public class Controller extends HttpServlet {
 				break;
 				
 			case "/insertar":
-				Palabra palabra = new Palabra();
+				Word palabra = new Word();
 				String parametro = request.getParameter("palabra");
 
 				if(parametro==null)

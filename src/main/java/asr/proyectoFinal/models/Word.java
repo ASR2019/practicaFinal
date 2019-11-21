@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package asr.proyectoFinal.dominio;
+package asr.proyectoFinal.models;
 
 /**
  * Represents a Visitor document stored in Cloudant.
  */
 
-public class Palabra {
+public class Word {
 	private String _id;
 	private String _rev;
 	private String name = null;
 
-	public Palabra() {
+	public Word() {
 		this.name = "";
 	}
 

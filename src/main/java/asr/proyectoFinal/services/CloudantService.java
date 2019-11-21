@@ -1,4 +1,4 @@
-package asr.proyectoFinal.dao;
+package asr.proyectoFinal.services;
 /*******************************************************************************
  * Copyright (c) 2017 IBM Corp.
  *
@@ -25,18 +25,27 @@ import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
 import com.google.gson.JsonObject;
 
-import asr.proyectoFinal.dominio.Palabra;
+import asr.proyectoFinal.models.Word;
+import asr.proyectoFinal.util.VCAPHelper;
 
-public class CloudantPalabraStore
+public class CloudantService
 {
 	private Database db = null;
-	private static final String databaseName = "mydb";
+	private static String databaseName = "prediction";
 	
-	public CloudantPalabraStore(){
+	public CloudantService() {
+		this(databaseName);
+	}
+	
+	public CloudantService(String name){
+		// Save database name to class
+		if(!databaseName.equals(name))
+			CloudantService.databaseName = name;
+		
+		// Connect to Cloudant database
 		CloudantClient cloudant = createClient();
-		if(cloudant!=null){
-		 db = cloudant.database(databaseName, true);
-		}
+		if(cloudant != null)
+			db = cloudant.database(databaseName, true);
 	}
 	
 	public Database getDB(){
@@ -76,10 +85,10 @@ public class CloudantPalabraStore
 		}
 	}
 	
-	public Collection<Palabra> getAll(){
-        List<Palabra> docs;
+	public Collection<Word> getAll(){
+        List<Word> docs;
 		try {
-			docs = db.getAllDocsRequestBuilder().includeDocs(true).build().getResponse().getDocsAs(Palabra.class);
+			docs = db.getAllDocsRequestBuilder().includeDocs(true).build().getResponse().getDocsAs(Word.class);
 		} catch (IOException e) {
 			return null;
 		}
@@ -87,26 +96,26 @@ public class CloudantPalabraStore
 	}
 
 	
-	public Palabra get(String id) {
-		return db.find(Palabra.class, id);
+	public Word get(String id) {
+		return db.find(Word.class, id);
 	}
 
 	
-	public Palabra persist(Palabra td) {
+	public Word persist(Word td) {
 		String id = db.save(td).getId();
-		return db.find(Palabra.class, id);
+		return db.find(Word.class, id);
 	}
 
-	public Palabra update(String id, Palabra newPalabra) {
-		Palabra visitor = db.find(Palabra.class, id);
+	public Word update(String id, Word newPalabra) {
+		Word visitor = db.find(Word.class, id);
 		visitor.setName(newPalabra.getName());
 		db.update(visitor);
-		return db.find(Palabra.class, id);
+		return db.find(Word.class, id);
 		
 	}
 
 	public void delete(String id) {
-		Palabra visitor = db.find(Palabra.class, id);
+		Word visitor = db.find(Word.class, id);
 		db.remove(id, visitor.get_rev());
 		
 	}
