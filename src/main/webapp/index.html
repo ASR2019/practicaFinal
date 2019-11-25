@@ -15,7 +15,7 @@
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 	</head>
 	
-	<body class="hold-transition sidebar-mini">
+	<body class="hold-transition sidebar-mini layout-fixed">
 		<div class="wrapper">
 	
 			<!-- Navbar -->
@@ -216,12 +216,239 @@
 				<!-- /.sidebar -->
 			</aside>
 					
-			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
+					<!-- Content Wrapper. Contains page content -->
 				<!-- Content Header (Page header) -->
-				
+				<div class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1 class="m-0 text-dark">Dashboard</h1>
+						</div><!-- /.col -->
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item"><a href="#">Home</a></li>
+							<li class="breadcrumb-item active">Dashboard</li>
+							</ol>
+						</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.container-fluid -->
+				</div>
+				<!-- /.content-header -->
+			
+				<!-- Main content -->
+				<div class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-lg-8">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">Area Chart</h3>
+						
+										<!-- <div class="card-tools">
+											<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+											</button>
+											<button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+										</div> -->
+									</div>
+									<div class="card-body">
+										<div class="chart">
+											<canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-4">
+								<div class="card card-primary card-outline">
+									<div class="card-body">
+										<h5 class="card-title">Card title</h5>
+						
+										<table id="example2" class="table table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>Rendering engine</th>
+													<th>Browser</th>
+													<th>Platform(s)</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Trident</td>
+													<td>Internet
+														Explorer 4.0
+													</td>
+													<td>Win 95+</td>
+												</tr>
+												<tr>
+													<td>Trident</td>
+													<td>Internet
+														Explorer 5.0
+													</td>
+													<td>Win 95+</td>
+												</tr>
+												<tr>
+													<td>Trident</td>
+													<td>Internet
+														Explorer 5.5
+													</td>
+													<td>Win 95+</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div><!-- /.card -->
+							</div>
+						</div>
+						<!-- /.row -->
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="card">
+									<div class="card-header">
+										<h5 class="m-0">Featured</h5>
+									</div>
+									<div class="card-body">
+										<h6 class="card-title">Special title treatment</h6>
+						
+										<table id="example2" class="table table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>Rendering engine</th>
+													<th>Browser</th>
+													<th>Platform(s)</th>
+													<th>Engine version</th>
+													<th>CSS grade</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Trident</td>
+													<td>Internet
+														Explorer 4.0
+													</td>
+													<td>Win 95+</td>
+													<td> 4</td>
+													<td>X</td>
+												</tr>
+												<tr>
+													<td>Trident</td>
+													<td>Internet
+														Explorer 5.0
+													</td>
+													<td>Win 95+</td>
+													<td>5</td>
+													<td>C</td>
+												</tr>
+												<tr>
+													<td>Trident</td>
+													<td>Internet
+														Explorer 5.5
+													</td>
+													<td>Win 95+</td>
+													<td>5.5</td>
+													<td>A</td>
+												</tr>
+												<tr>
+													<td>Trident</td>
+													<td>Internet
+														Explorer 6
+													</td>
+													<td>Win 98+</td>
+													<td>6</td>
+													<td>A</td>
+												</tr>
+												<tr>
+													<td>Trident</td>
+													<td>Internet Explorer 7</td>
+													<td>Win XP SP2+</td>
+													<td>7</td>
+													<td>A</td>
+												</tr>
+												<tr>
+													<td>Trident</td>
+													<td>AOL browser (AOL desktop)</td>
+													<td>Win XP</td>
+													<td>6</td>
+													<td>A</td>
+												</tr>
+												<tr>
+													<td>Gecko</td>
+													<td>Firefox 1.0</td>
+													<td>Win 98+ / OSX.2+</td>
+													<td>1.7</td>
+													<td>A</td>
+												</tr>
+												<tr>
+													<td>Gecko</td>
+													<td>Firefox 1.5</td>
+													<td>Win 98+ / OSX.2+</td>
+													<td>1.8</td>
+													<td>A</td>
+												</tr>
+												<tr>
+													<td>Gecko</td>
+													<td>Firefox 2.0</td>
+													<td>Win 98+ / OSX.2+</td>
+													<td>1.8</td>
+													<td>A</td>
+												</tr>
+												<tr>
+													<td>Gecko</td>
+													<td>Firefox 3.0</td>
+													<td>Win 2k+ / OSX.3+</td>
+													<td>1.9</td>
+													<td>A</td>
+												</tr>
+												<tr>
+													<td>Gecko</td>
+													<td>Camino 1.0</td>
+													<td>OSX.2+</td>
+													<td>1.8</td>
+													<td>A</td>
+												</tr>
+												<tr>
+													<td>Gecko</td>
+													<td>Camino 1.5</td>
+													<td>OSX.3+</td>
+													<td>1.8</td>
+													<td>A</td>
+												</tr>
+												<tr>
+													<td>Gecko</td>
+													<td>Netscape 7.2</td>
+													<td>Win 95+ / Mac OS 8.6-9.2</td>
+													<td>1.7</td>
+													<td>A</td>
+												</tr>
+												<tr>
+													<td>Gecko</td>
+													<td>Netscape Browser 8</td>
+													<td>Win 98SE+</td>
+													<td>1.7</td>
+													<td>A</td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr>
+													<th>Rendering engine</th>
+													<th>Browser</th>
+													<th>Platform(s)</th>
+													<th>Engine version</th>
+													<th>CSS grade</th>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- /.col-md-12 -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</div>
 				<!-- /.content -->
-			</div>
+			  </div>
 			<!-- /.content-wrapper -->
 					
 			<!-- Control Sidebar -->
