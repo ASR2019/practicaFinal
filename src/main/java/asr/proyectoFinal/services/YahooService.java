@@ -1,20 +1,29 @@
 package asr.proyectoFinal.services;
 
 import java.util.List;
-import java.net.URLConnection;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import asr.proyectoFinal.util.JSONHelper;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class YahooService {
     public static void main(String args[]) {
         try {
-            System.out.println(YahooService.getRawNewsFeed("GOOGL"));
+            String jsonString = YahooService.getJSONNewsFeed("GOOGL");
+            JsonElement jsonParse = new JsonParser().parse(jsonString);
+
+            if(jsonParse.isJsonObject()) {
+                JsonObject json = jsonParse.getAsJsonObject();
+                System.out.println(json);
+            }
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -31,7 +40,7 @@ public class YahooService {
         StringBuilder response = new StringBuilder();
         String inputLine;
 
-        try{
+        try {
             // Create connection
             URL url = new URL(urlString);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -52,5 +61,15 @@ public class YahooService {
         }
         
         return response.toString();
+    }
+
+    public static String getJSONNewsFeed(String symbol) {
+        // Get raw data
+        String response = YahooService.getRawNewsFeed(symbol);
+
+        // Transform to JSON
+        String jsonString = JSONHelper.xmlToJson(response);
+
+        return jsonString;
     }
 }
