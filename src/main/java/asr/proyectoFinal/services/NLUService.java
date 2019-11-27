@@ -8,6 +8,7 @@ import com.ibm.watson.natural_language_understanding.v1.NaturalLanguageUnderstan
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CategoriesOptions;
+import com.ibm.watson.natural_language_understanding.v1.model.ConceptsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.Features;
 import com.ibm.watson.natural_language_understanding.v1.model.SentimentOptions;
 
@@ -20,39 +21,43 @@ public class NLUService {
 	
 	public static void main(String args[])	{
 		
-		String text = "Microsoft stock collapses and godzilla attacks. Pedro is great";
+		String text = "googl";
 		
 		List<String> targets = new ArrayList<>();
-		targets.add("godzilla");
-		targets.add("Pedro");
+		targets.add("a");
+		//targets.add("Pedro");
 		
-		AnalysisResults response = NLUService.analisisSentimiento(text, targets);
+		AnalysisResults response = NLUService.analisisSentimiento(text);
 		System.out.println(response);
 		
 	}
 	
-	public static AnalysisResults analisisSentimiento(String text, List<String> targets)	{
+	public static AnalysisResults analisisSentimiento(String stockSymbol)	{
 	//Sobre el texto dado se devuelve un análisis de sentimiento en torno a cada target asignando una puntuación de -1(negativo) a +1(positivo).
 		IamAuthenticator authenticator = new IamAuthenticator(apiKey);
 		NaturalLanguageUnderstanding naturalLanguageUnderstanding = new NaturalLanguageUnderstanding("2019-07-12", authenticator);
 		naturalLanguageUnderstanding.setServiceUrl(nluUrl);
 
-		//String url = "www.wsj.com/news/markets";
+		String url = "https://feeds.finance.yahoo.com/rss/2.0/headline?s="+stockSymbol;
 
 		
 
 		SentimentOptions sentiment = new SentimentOptions.Builder()
-		  .targets(targets)
+		  //.targets(targets)
 		  .build();
+		
+		ConceptsOptions concepts = new ConceptsOptions.Builder()
+				.build();
 
 		Features features = new Features.Builder()
 		  .sentiment(sentiment)
+		  .concepts(concepts)
 		  //.categories(null)
 		  .build();
 
 		AnalyzeOptions parameters = new AnalyzeOptions.Builder()
-		  //.url(url)
-		  .text(text)
+		  .url(url)
+		  //.text(text)
 		  .features(features)
 		  .build();
 
