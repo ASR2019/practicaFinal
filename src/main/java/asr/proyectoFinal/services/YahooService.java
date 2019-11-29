@@ -21,8 +21,8 @@ import java.net.URL;
 public class YahooService {
     public static void main(String args[]) {
         try {
-            ArrayList<YahooNew> list = YahooService.getNewsFeed("AAPL");
-            System.out.println(list.size());
+            ArrayList<YahooNew> list = YahooService.getNewsFeed("AMZN");
+            System.out.println(new Gson().toJson(list));
         } catch(Exception e) {
             e.printStackTrace();
         }
