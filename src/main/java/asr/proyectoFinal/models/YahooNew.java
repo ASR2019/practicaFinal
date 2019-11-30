@@ -22,4 +22,8 @@ public class YahooNew {
             this.content = content;
         }
     }
+
+    public String getLink() {
+        return link;
+    }
 }
