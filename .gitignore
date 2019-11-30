@@ -33,4 +33,4 @@ hs_err_pid*
 .vscode
 
 # Remove credentials
-src/main/resources/*
+# src/main/resources/*
