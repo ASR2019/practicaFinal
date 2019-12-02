@@ -28,6 +28,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 
+import asr.proyectoFinal.models.Candle;
 import asr.proyectoFinal.models.YahooNew;
 import asr.proyectoFinal.util.VCAPHelper;
 
@@ -56,7 +57,7 @@ public class AlphaVantageService {
             JSONObject momento;
             float low,high,open,close;
             int volume;
-            ArrayList listaProcesada = new ArrayList();
+            ArrayList<Candle> listaProcesada = new ArrayList<Candle>();
             //Get financial data into an ArrayList listaProcesada
             while(it.hasNext())	{
             	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	//y-M-d t
@@ -83,7 +84,7 @@ public class AlphaVantageService {
             //System.out.printl(new Gson.toJson(list));
             it = list.iterator();
             YahooNew aux = new YahooNew();
-            ArrayList news = new ArrayList();
+            ArrayList<YahooNew> news = new ArrayList<YahooNew>();
             AnalysisResults analisis;
             Double score;
             while (it.hasNext())	{
@@ -113,7 +114,7 @@ public class AlphaVantageService {
             
             csvWriter.append("\n");
             Date dateNew;
-            ArrayList newsValidDates;
+            ArrayList<YahooNew> newsValidDates;
             Candle candle;
             
             int maxNoticias = 5;
@@ -122,7 +123,7 @@ public class AlphaVantageService {
             for (Object rowData : listaProcesada) {
             	candle = (Candle) rowData;
             	fecha = candle.getFecha();
-            	newsValidDates = new ArrayList();
+            	newsValidDates = new ArrayList<YahooNew>();
             	cont = 0;
             	//Se toman las noticias válidas empezando por la última
             	for (int j = 0; j < news.size(); j++)	{

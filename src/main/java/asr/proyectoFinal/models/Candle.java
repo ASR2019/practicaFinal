@@ -1,4 +1,4 @@
-package asr.proyectoFinal.services;
+package asr.proyectoFinal.models;
 
 import java.util.Date;
 
