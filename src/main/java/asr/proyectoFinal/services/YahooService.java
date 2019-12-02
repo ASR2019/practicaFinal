@@ -1,8 +1,11 @@
 package asr.proyectoFinal.services;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 
 import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -12,6 +15,7 @@ import asr.proyectoFinal.models.YahooNew;
 import asr.proyectoFinal.util.JSONHelper;
 
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
@@ -21,8 +25,38 @@ import java.net.URL;
 public class YahooService {
     public static void main(String args[]) {
         try {
-            ArrayList<YahooNew> list = YahooService.getNewsFeed("AMZN");
-            System.out.println(new Gson().toJson(list));
+            ArrayList<YahooNew> list = YahooService.getNewsFeed("GOOG");
+            //System.out.printl(new Gson.toJson(list));
+            Iterator it = list.iterator();
+            YahooNew aux = new YahooNew();
+            ArrayList news = new ArrayList();
+            while (it.hasNext())	{
+            	aux = (YahooNew) it.next();
+            	news.add(aux);
+            	//System.out.println(aux.getLink());
+            }
+            
+            FileWriter csvWriter = new FileWriter("news.csv");
+            AnalysisResults analisis;
+            YahooNew yahooNew;
+            Double score;
+            Date date;
+            for (Object rowData : news) {
+            	yahooNew = (YahooNew) rowData;
+            	date = yahooNew.getPubDate();
+            	
+            	analisis = NLUService.analisisSentimientoURL(yahooNew.getLink());
+            	score = analisis.getSentiment().getDocument().getScore();
+            	//System.out.println(score);
+            	
+                csvWriter.append(""+date);
+                csvWriter.append(",");
+                csvWriter.append(""+score);
+                csvWriter.append("\n");
+            }
+
+            csvWriter.flush();
+            csvWriter.close();
         } catch(Exception e) {
             e.printStackTrace();
         }
