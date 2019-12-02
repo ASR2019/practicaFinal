@@ -19,14 +19,34 @@ public class YahooNew {
 
         // Constructor
         public Guid(boolean isPermaLink, String content) {
-            this.isPermaLink = isPermaLink;
-            this.content = content;
-        }
+            this.setPermaLink(isPermaLink);;
+            this.setContent(content);
+		}
+		
+		public boolean isPermaLink() {
+			return isPermaLink;
+		}
+
+		public void setPermaLink(boolean isPermaLink) {
+			this.isPermaLink = isPermaLink;
+		}
+
+		public String getContent() {
+			return content;
+		}
+
+		public void setContent(String content) {
+			this.content = content;
+		}
     }
 
     public String getLink() {
         return link;
-    }
+	}
+	
+	public void setLink(String link) {
+		this.link = link;
+	}
 
 	public Date getPubDate() {
 		return pubDate;
