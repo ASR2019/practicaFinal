@@ -197,8 +197,9 @@ public class AlphaVantageService {
         Map<String, String> parametersMap = new HashMap<>();
         parametersMap.put("function", "TIME_SERIES_INTRADAY");
         parametersMap.put("symbol", URLEncoder.encode(symbol, StandardCharsets.UTF_8.toString()));
-        parametersMap.put("interval", "1min");
+        parametersMap.put("interval", "5min");
         parametersMap.put("apikey", API_KEY);
+        parametersMap.put("outputsize", "full");
 
         // Form string of parameters for request
         StringBuilder paramString = new StringBuilder();
