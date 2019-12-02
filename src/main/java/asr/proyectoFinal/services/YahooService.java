@@ -1,11 +1,8 @@
 package asr.proyectoFinal.services;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 
 import com.google.gson.reflect.TypeToken;
-import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -15,7 +12,6 @@ import asr.proyectoFinal.models.YahooNew;
 import asr.proyectoFinal.util.JSONHelper;
 
 import java.io.BufferedReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;

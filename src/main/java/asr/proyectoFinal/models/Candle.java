@@ -8,7 +8,7 @@ public class Candle {
 	private int volume;
 
 	public Candle(Date date, float open, float high, float low, float close, int volume) {
-		this.setFecha(date);
+		this.setDate(date);
 		this.setOpen(open);
 		this.setHigh(high);
 		this.setLow(low);
@@ -16,12 +16,12 @@ public class Candle {
 		this.setVolume(volume);
 	}
 
-	public Date getFecha() {
+	public Date getDate() {
 		return date;
 	}
 	
-	public void setFecha(Date fecha2) {
-		this.date = fecha2;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 	public float getClose() {

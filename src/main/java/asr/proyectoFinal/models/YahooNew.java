@@ -18,11 +18,13 @@ public class YahooNew {
         private String content;
 
         // Constructor
-        public Guid(boolean isPermaLink, String content) {
+        @SuppressWarnings("unused")
+		public Guid(boolean isPermaLink, String content) {
             this.setPermaLink(isPermaLink);;
             this.setContent(content);
 		}
 		
+        @SuppressWarnings("unused")
 		public boolean isPermaLink() {
 			return isPermaLink;
 		}
@@ -31,6 +33,7 @@ public class YahooNew {
 			this.isPermaLink = isPermaLink;
 		}
 
+		@SuppressWarnings("unused")
 		public String getContent() {
 			return content;
 		}

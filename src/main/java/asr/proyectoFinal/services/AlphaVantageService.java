@@ -12,9 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -191,16 +189,6 @@ public class AlphaVantageService {
     //     }
     // }
 
-    public static void main(String args[]) {
-        try {
-            ArrayList<Candle> list = AlphaVantageService.getStockData("MSFT");
-            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(list));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
     public static String getJSONStockData(String symbol) throws IOException {
         if(API_KEY == null)
             AlphaVantageService.setApiKey();
@@ -209,7 +197,7 @@ public class AlphaVantageService {
         Map<String, String> parametersMap = new HashMap<>();
         parametersMap.put("function", "TIME_SERIES_INTRADAY");
         parametersMap.put("symbol", URLEncoder.encode(symbol, StandardCharsets.UTF_8.toString()));
-        parametersMap.put("interval", "5min");
+        parametersMap.put("interval", "1min");
         parametersMap.put("apikey", API_KEY);
 
         // Form string of parameters for request
