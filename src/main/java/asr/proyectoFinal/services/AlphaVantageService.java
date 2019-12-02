@@ -1,9 +1,6 @@
 package asr.proyectoFinal.services;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -12,26 +9,21 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+import java.util.stream.Collectors;
 
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 
 import asr.proyectoFinal.models.Candle;
-import asr.proyectoFinal.models.YahooNew;
 import asr.proyectoFinal.util.VCAPHelper;
 
 public class AlphaVantageService {
@@ -199,6 +191,16 @@ public class AlphaVantageService {
     //     }
     // }
 
+    public static void main(String args[]) {
+        try {
+            ArrayList<Candle> list = AlphaVantageService.getStockData("MSFT");
+            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(list));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     public static String getJSONStockData(String symbol) throws IOException {
         if(API_KEY == null)
             AlphaVantageService.setApiKey();
@@ -207,7 +209,7 @@ public class AlphaVantageService {
         Map<String, String> parametersMap = new HashMap<>();
         parametersMap.put("function", "TIME_SERIES_INTRADAY");
         parametersMap.put("symbol", URLEncoder.encode(symbol, StandardCharsets.UTF_8.toString()));
-        parametersMap.put("interval", "1min");
+        parametersMap.put("interval", "5min");
         parametersMap.put("apikey", API_KEY);
 
         // Form string of parameters for request
@@ -251,6 +253,7 @@ public class AlphaVantageService {
     public static ArrayList<Candle> getStockData(String symbol) throws IOException {
         // Retrieve JSON text
         String data = AlphaVantageService.getJSONStockData(symbol);
+        JsonArray json = AlphaVantageService.parseData(data);
 
         // GSON parse to Java Object
         Gson gson = new GsonBuilder()
@@ -262,7 +265,7 @@ public class AlphaVantageService {
         Type listType = new TypeToken<ArrayList<Candle>>() {}.getType();
         
         // Parse JSON String to JsonObject from GSON
-        ArrayList<Candle> list = gson.fromJson(data, listType);
+        ArrayList<Candle> list = gson.fromJson(json, listType);
 
         // Return generated list
         return list;
@@ -298,5 +301,52 @@ public class AlphaVantageService {
         } catch (UnsupportedEncodingException e) {
             return entry.toString();
         }
+    }
+
+    private static JsonArray parseData(String data) {
+        Gson gson = new Gson();
+
+        JsonObject jsonData = gson.fromJson(data, JsonObject.class);
+        String keys[] = jsonData.keySet().toArray(new String[2]);
+
+        // Get metadata
+
+        // Get data
+        JsonObject candles = jsonData.get(keys[1]).getAsJsonObject();
+
+        JsonArray result = new JsonArray();
+        
+        candles
+            .entrySet()
+            .stream()
+            .map(AlphaVantageService::addKeyToObject)
+            .map(AlphaVantageService::removeNumbersFromKey)
+            .forEach(result::add);
+
+        return result;
+    }
+
+    private static JsonObject removeNumbersFromKey(JsonObject o) {
+        JsonObject result = new JsonObject();
+
+        o.entrySet()
+            .stream()
+            .forEach(e -> {
+                if(Character.isDigit(e.getKey().charAt(0)))
+                    result.addProperty(e.getKey().substring(3), e.getValue().getAsString());
+                else
+                    result.addProperty(e.getKey(), e.getValue().getAsString());
+            });
+
+        return result;
+    }
+
+    private static JsonObject addKeyToObject(Entry<String,JsonElement> it) {
+        JsonObject json = it.getValue().getAsJsonObject();
+        String key = it.getKey();
+
+        json.addProperty("date", key);
+
+        return json;
     }
 }
