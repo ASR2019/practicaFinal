@@ -10,7 +10,6 @@ import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.natural_language_understanding.v1.NaturalLanguageUnderstanding;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.ConceptsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.Features;
 import com.ibm.watson.natural_language_understanding.v1.model.SentimentOptions;
 
@@ -32,14 +31,12 @@ public class NLUService {
 		NaturalLanguageUnderstanding naturalLanguageUnderstanding = new NaturalLanguageUnderstanding("2019-07-12", authenticator);
 		naturalLanguageUnderstanding.setServiceUrl(nluUrl);
 
-		//String url = "https://feeds.finance.yahoo.com/rss/2.0/headline?s="+stockSymbol;
-
 		SentimentOptions sentiment = new SentimentOptions.Builder().build();
 		
 		Features features = new Features.Builder()
-		  .sentiment(sentiment)
-		  .build();
-
+		.sentiment(sentiment)
+		.build();
+		
 		AnalyzeOptions parameters = new AnalyzeOptions.Builder()
 		  .url(stockNew.getLink())
 		  .features(features)
