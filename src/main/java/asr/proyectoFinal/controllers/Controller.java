@@ -3,6 +3,9 @@ package asr.proyectoFinal.controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,11 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 
 import asr.proyectoFinal.models.Candle;
 import asr.proyectoFinal.models.YahooNew;
 import asr.proyectoFinal.services.AlphaVantageService;
-import asr.proyectoFinal.services.CloudantService;
+import asr.proyectoFinal.services.NLUService;
+//import asr.proyectoFinal.services.CloudantService;
 import asr.proyectoFinal.services.YahooService;
 
 /**
@@ -30,7 +35,7 @@ public class Controller extends HttpServlet {
 	{
 		PrintWriter out = response.getWriter();
 		
-		CloudantService store = new CloudantService();
+		// CloudantService store = new CloudantService();
 		System.out.println(request.getServletPath());
 
 		response.setContentType("application/json");
@@ -44,8 +49,19 @@ public class Controller extends HttpServlet {
 		{
 			case "/news":
 				ArrayList<YahooNew> newsFeed = YahooService.getNewsFeed(symbol);
+				Map<YahooNew, AnalysisResults> analysis = NLUService.sentimentAnalysis(newsFeed);
+
+				List<YahooNew> list = analysis
+					.entrySet()
+					.stream()
+					.map(e -> {
+						YahooNew yahooNew = e.getKey();
+						yahooNew.setScore(e.getValue().getSentiment().getDocument().getScore());
+						return yahooNew;
+					})
+					.collect(Collectors.toList());				
 				
-				out.println(gson.toJson(newsFeed));
+				out.println(gson.toJson(list));
 				
 				break;
 

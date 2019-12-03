@@ -36,11 +36,8 @@ public class NLUService {
 
 		SentimentOptions sentiment = new SentimentOptions.Builder().build();
 		
-		ConceptsOptions concepts = new ConceptsOptions.Builder().build();
-
 		Features features = new Features.Builder()
 		  .sentiment(sentiment)
-		  .concepts(concepts)
 		  .build();
 
 		AnalyzeOptions parameters = new AnalyzeOptions.Builder()

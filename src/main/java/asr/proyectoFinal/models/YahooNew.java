@@ -41,7 +41,7 @@ public class YahooNew {
 		public void setContent(String content) {
 			this.content = content;
 		}
-    }
+	}
 
     public String getLink() {
         return link;
