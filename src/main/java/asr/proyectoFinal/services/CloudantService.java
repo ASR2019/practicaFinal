@@ -20,9 +20,11 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 
+import com.cloudant.client.api.Changes;
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
+import com.cloudant.client.api.model.ChangesResult;
 import com.google.gson.JsonObject;
 
 import asr.proyectoFinal.models.Word;
@@ -52,8 +54,24 @@ public class CloudantService
 		return db;
 	}
 
+	/**
+	 * https://static.javadoc.io/com.cloudant/cloudant-client/2.18.0/com/cloudant/client/api/Changes.html
+	 */
 	public void test() {
-		
+		// feed type continuous
+ 		Changes changes = db.changes()
+ 			.includeDocs(true)
+			.heartBeat(30000)
+ 			.continuousChanges();
+
+			while (changes.hasNext()) {
+ 				ChangesResult.Row feed = changes.next();
+				String docId = feed.getId();
+				JsonObject doc = feed.getDoc();
+			}
+
+				//while loop blocks; stop from another thread
+			changes.stop(); // stop continuous feed
 	}
 	// public <T> Collection<T> getAll(Class<T> classOfT){
 	// 	List<T> docs;
