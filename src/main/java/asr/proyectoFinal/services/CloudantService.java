@@ -20,9 +20,11 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 
+import com.cloudant.client.api.Changes;
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
+import com.cloudant.client.api.model.ChangesResult;
 import com.google.gson.JsonObject;
 
 import asr.proyectoFinal.models.Word;
@@ -52,10 +54,78 @@ public class CloudantService
 		return db;
 	}
 
+	/**
+	 * https://static.javadoc.io/com.cloudant/cloudant-client/2.18.0/com/cloudant/client/api/Changes.html
+	 */
+	public void test() {
+		// feed type continuous
+ 		Changes changes = db.changes()
+ 			.includeDocs(true)
+			.heartBeat(30000)
+ 			.continuousChanges();
+
+			while (changes.hasNext()) {
+ 				ChangesResult.Row feed = changes.next();
+				String docId = feed.getId();
+				JsonObject doc = feed.getDoc();
+			}
+
+				//while loop blocks; stop from another thread
+			changes.stop(); // stop continuous feed
+	}
+	// public <T> Collection<T> getAll(Class<T> classOfT){
+	// 	List<T> docs;
+	// 	try {
+	// 		docs = db.getAllDocsRequestBuilder().includeDocs(true).build().getResponse().getDocsAs(classOfT);
+	// 	} catch (IOException e) {
+	// 		return null;
+	// 	}
+	// 	return docs;
+	// }
+
+	public Collection<Word> getAll(){
+        List<Word> docs;
+		try {
+			docs = db.getAllDocsRequestBuilder().includeDocs(true).build().getResponse().getDocsAs(Word.class);
+		} catch (IOException e) {
+			return null;
+		}
+        return docs;
+	}
+	
+	
+	public Word get(String id) {
+		return db.find(Word.class, id);
+	}
+	
+	
+	public Word persist(Word td) {
+		String id = db.save(td).getId();
+		return db.find(Word.class, id);
+	}
+
+	public Word update(String id, Word newPalabra) {
+		Word visitor = db.find(Word.class, id);
+		visitor.setName(newPalabra.getName());
+		db.update(visitor);
+		return db.find(Word.class, id);
+		
+	}
+	
+	public void delete(String id) {
+		Word visitor = db.find(Word.class, id);
+		db.remove(id, visitor.get_rev());
+		
+	}
+
+	public int count() throws Exception {
+		return getAll().size();
+	}
+	
 	private static CloudantClient createClient() {
 		
 		String url;
-
+	
 		if (System.getenv("VCAP_SERVICES") != null) {
 			// When running in Bluemix, the VCAP_SERVICES env var will have the credentials for all bound/connected services
 			// Parse the VCAP JSON structure looking for cloudant.
@@ -73,7 +143,7 @@ public class CloudantService
 				return null;
 			}
 		}
-
+	
 		try {
 			System.out.println("Connecting to Cloudant");
 			CloudantClient client = ClientBuilder.url(new URL(url)).build();
@@ -84,44 +154,4 @@ public class CloudantService
 			return null;
 		}
 	}
-	
-	public Collection<Word> getAll(){
-        List<Word> docs;
-		try {
-			docs = db.getAllDocsRequestBuilder().includeDocs(true).build().getResponse().getDocsAs(Word.class);
-		} catch (IOException e) {
-			return null;
-		}
-        return docs;
-	}
-
-	
-	public Word get(String id) {
-		return db.find(Word.class, id);
-	}
-
-	
-	public Word persist(Word td) {
-		String id = db.save(td).getId();
-		return db.find(Word.class, id);
-	}
-
-	public Word update(String id, Word newPalabra) {
-		Word visitor = db.find(Word.class, id);
-		visitor.setName(newPalabra.getName());
-		db.update(visitor);
-		return db.find(Word.class, id);
-		
-	}
-
-	public void delete(String id) {
-		Word visitor = db.find(Word.class, id);
-		db.remove(id, visitor.get_rev());
-		
-	}
-
-	public int count() throws Exception {
-		return getAll().size();
-	}
-
 }
