@@ -11,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,6 +40,7 @@ public class AlphaVantageService {
         try {
         	String symbolId = "GOOGL";
             String src = AlphaVantageService.getJSONStockData(symbolId);
+            
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             //System.out.println(gson);
             BufferedWriter writer = new BufferedWriter(new FileWriter("alpha.json"));
@@ -284,5 +286,16 @@ public class AlphaVantageService {
         } catch (UnsupportedEncodingException e) {
             return entry.toString();
         }
+    }
+    
+    public static YahooNew analisisSentimientoNoticia(YahooNew noticia)	{
+    	
+    	YahooNew aux = new YahooNew();
+    	AnalysisResults analisis = NLUService.analisisSentimientoURL(noticia.getLink());
+    	Double score = analisis.getSentiment().getDocument().getScore();
+    	noticia.setScore(score);
+    	aux = noticia;
+    	
+    	return aux;
     }
 }
