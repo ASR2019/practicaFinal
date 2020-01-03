@@ -12,10 +12,10 @@ public class YahooNew {
     private Double score;
 
     // INNER CLASS
-    private class Guid {
+    public class Guid {
         // Attributes
         private boolean isPermaLink;
-        private String content;
+        private String content; //Id de noticia
 
         // Constructor
         @SuppressWarnings("unused")

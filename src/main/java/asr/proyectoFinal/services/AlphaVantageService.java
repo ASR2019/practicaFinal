@@ -38,7 +38,17 @@ public class AlphaVantageService {
     private static final String API_ENDPOINT = "https://www.alphavantage.co/query";
 
 
-    /*public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
+    	
+    	ArrayList<YahooNew> list = YahooService.getNewsFeed("GOOGL");
+		
+		YahooNew aux = new YahooNew();
+		aux = list.get(1);
+		String id = aux.getGuid().getContent();
+		System.out.println(id);
+		YahooNew noticiaFinal = AlphaVantageService.analisisSentimientoNoticia(aux);
+		System.out.println(noticiaFinal.getScore());
+    }/*
       //  try {
         	String symbolId = "GOOGL";
            // String src = AlphaVantageService.getJSONStockData(symbolId);
