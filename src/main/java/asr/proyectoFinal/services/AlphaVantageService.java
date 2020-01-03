@@ -96,9 +96,10 @@ public class AlphaVantageService {
             	System.out.println(score);
             }
             
+            int maxNoticias = 5;
             
             FileWriter csvWriter = new FileWriter("prices.csv");
-            csvWriter.append("COLUMN1");
+            csvWriter.append("date");
             csvWriter.append(",");
             csvWriter.append("Close");
             csvWriter.append(",");
@@ -109,6 +110,13 @@ public class AlphaVantageService {
             csvWriter.append("Low");
             csvWriter.append(",");
             csvWriter.append("Volume");
+            for(int j = 0; j<maxNoticias; j++)	{
+            	csvWriter.append(",");
+            	csvWriter.append("Score"+j);
+            	csvWriter.append(",");
+            	csvWriter.append("Distance"+j);
+            }
+            	
             
             
             csvWriter.append("\n");
@@ -116,7 +124,7 @@ public class AlphaVantageService {
             ArrayList newsValidDates;
             Candle candle;
             
-            int maxNoticias = 5;
+            
             long distancia;
             int cont;
             for (Object rowData : listaProcesada) {
