@@ -3,8 +3,10 @@ package asr.proyectoFinal.controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+// import java.util.List;
+// import java.util.Map;
+// import java.util.stream.Collectors;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -15,114 +17,112 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+//import com.google.gson.JsonArray;
+//import com.google.gson.JsonObject;
+//import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 
 import asr.proyectoFinal.models.Candle;
+import asr.proyectoFinal.models.Symbol;
 import asr.proyectoFinal.models.YahooNew;
-import asr.proyectoFinal.services.AlphaVantageService;
-//import asr.proyectoFinal.services.CloudantService;
+// import asr.proyectoFinal.services.AlphaVantageService;
 import asr.proyectoFinal.services.NLUService;
-import asr.proyectoFinal.services.YahooService;
+//import asr.proyectoFinal.services.CloudantService;
+//import asr.proyectoFinal.services.NLUService;
+// import asr.proyectoFinal.services.YahooService;
 
 /**
  * Servlet implementation class Controller
  */
-@WebServlet(urlPatterns = {"/news", "/stock", "/data"})
+@WebServlet(urlPatterns = {"/news", "/stock", "/score", "/data"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static ArrayList<Symbol> symbols = new ArrayList<Symbol>();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		PrintWriter out = response.getWriter();
-		
 		//CloudantService store = new CloudantService();
-		System.out.println(request.getServletPath());
 
+		// Response parameters
+		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
+		// Gson for JSON formatting
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-		String symbol = request.getParameter("symbol");
+		// Get request parameters
+		String symbolString = request.getParameter("symbol");
+		String newId = request.getParameter("id");
 
-		ArrayList<Candle> symbolStock = new ArrayList<Candle>();
-		ArrayList<YahooNew> newsFeed = new ArrayList<YahooNew>();
+		// Find symbol if exists
+		Symbol targetSymbol = symbols
+								.stream()
+								.filter(symbol -> symbol.getSymbolId().equals(symbolString))
+								.findFirst()
+								.orElse(new Symbol(symbolString));
 
-		switch(request.getServletPath())
-		{
-			// 
-			case "/news":
-				newsFeed = this.fetchNews(symbol);				
+		// Paths
+		try {
+			switch(request.getServletPath()) {
+				// Return news from a given symbol
+				case "/news":
+					ArrayList<YahooNew> newsFeed = targetSymbol.updateNews();				
+					
+					out.println(gson.toJson(newsFeed));
+					
+					break;
 				
-				out.println(gson.toJson(newsFeed));
+				// Return the historic stock from a certain symbol
+				case "/stock":
+					ArrayList<Candle> symbolStock = targetSymbol.updateStock();
+
+					out.println(gson.toJson(symbolStock));
+
+					break;
+
+				// Get score for a Yahoo new
+				case "/score":
+					YahooNew targetNew = targetSymbol.getNews()
+													   .stream()
+													   .filter(n -> n.getGuid().getContent().equals(newId))
+													   .findFirst()
+													   .get();
+										
+					AnalysisResults analysis = NLUService.sentimentAnalysis(targetNew);
+					
+					targetNew.setScore(analysis.getSentiment().getDocument().getScore());
+
+					out.println(gson.toJson(analysis));
+					
+					break;
 				
-				break;
-			
-			// 
-			case "/stock":
-				symbolStock = this.fetchStock(symbol);
+				// Get stored data from a symbol
+				case "/data":
+					out.println(gson.toJson(targetSymbol));
 
-				out.println(gson.toJson(symbolStock));
+					break;
+			}
 
-				break;
+			// Remove original symbol
+			symbols = symbols
+						.stream()
+						.filter(symbol -> !symbol.getSymbolId().equals(symbolString))
+						.collect(Collectors.toCollection(ArrayList::new));
 
-			// Asynchronously fetch new data from the Internet.
-			case "/data":
-				
-				String id = request.getParameter("idNoticia");
-				YahooNew noticiaBuscada = Controller.getNoticia(id);
-				YahooNew noticiaFinal = AlphaVantageService.analisisSentimientoNoticia(noticiaBuscada);
-				out.println(gson.toJson(noticiaFinal));
-				
+			// Add modified symbol
+			symbols.add(targetSymbol);
 
-				break;
-			
+		} catch(Exception e) {
+			out.println(e.toString());
 		}
 	}
 
-	private static YahooNew getNoticia(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
-	private ArrayList<Candle> fetchStock(String symbol) {
-		try {
-			return AlphaVantageService.getStockData(symbol);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private ArrayList<YahooNew> fetchNews(String symbol) {
-		try {
-			ArrayList<YahooNew> newsFeed = YahooService.getNewsFeed(symbol);
-			Map<YahooNew, AnalysisResults> analysis = NLUService.sentimentAnalysis(newsFeed);
-
-			List<YahooNew> list = analysis
-				.entrySet()
-				.stream()
-				.map(e -> {
-					YahooNew yahooNew = e.getKey();
-					yahooNew.setScore(e.getValue().getSentiment().getDocument().getScore());
-					return yahooNew;
-				})
-				.collect(Collectors.toList());
-
-			return new ArrayList<YahooNew>(list);
-		} catch(IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
 }

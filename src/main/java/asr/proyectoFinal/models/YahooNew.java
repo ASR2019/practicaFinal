@@ -20,7 +20,7 @@ public class YahooNew {
         // Constructor
         @SuppressWarnings("unused")
 		public Guid(boolean isPermaLink, String content) {
-            this.setPermaLink(isPermaLink);;
+            this.setPermaLink(isPermaLink);
             this.setContent(content);
 		}
 		

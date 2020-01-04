@@ -30,8 +30,7 @@ import com.google.gson.JsonObject;
 import asr.proyectoFinal.models.Word;
 import asr.proyectoFinal.util.VCAPHelper;
 
-public class CloudantService
-{
+public class CloudantService {
 	private Database db = null;
 	private static String databaseName = "prediction";
 	
