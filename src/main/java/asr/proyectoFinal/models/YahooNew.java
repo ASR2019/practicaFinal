@@ -6,6 +6,7 @@ public class YahooNew {
     // Attributes
     private String link;
     private String description;
+    private String translatedDescription;
     private Guid guid;
     private String title;
     private Date pubDate;
@@ -89,5 +90,13 @@ public class YahooNew {
 
 	public void setScore(Double score) {
 		this.score = score;
+	}
+
+	public String getTranslatedDescription() {
+		return translatedDescription;
+	}
+
+	public void setTranslatedDescription(String translatedDescription) {
+		this.translatedDescription = translatedDescription;
 	}
 }
