@@ -27,6 +27,7 @@ import com.cloudant.client.api.Database;
 import com.cloudant.client.api.model.ChangesResult;
 import com.google.gson.JsonObject;
 
+import asr.proyectoFinal.models.Symbol;
 import asr.proyectoFinal.models.Word;
 import asr.proyectoFinal.util.VCAPHelper;
 
@@ -83,10 +84,10 @@ public class CloudantService
 	// 	return docs;
 	// }
 
-	public Collection<Word> getAll(){
-        List<Word> docs;
+	public Collection<Symbol> getAll(){
+        List<Symbol> docs;
 		try {
-			docs = db.getAllDocsRequestBuilder().includeDocs(true).build().getResponse().getDocsAs(Word.class);
+			docs = db.getAllDocsRequestBuilder().includeDocs(true).build().getResponse().getDocsAs(Symbol.class);
 		} catch (IOException e) {
 			return null;
 		}
@@ -94,27 +95,32 @@ public class CloudantService
 	}
 	
 	
-	public Word get(String id) {
-		return db.find(Word.class, id);
+	public Symbol get(String id) {
+		return db.find(Symbol.class, id);
 	}
 	
 	
-	public Word persist(Word td) {
+	public Symbol persist(Symbol td) {
 		String id = db.save(td).getId();
-		return db.find(Word.class, id);
+		return db.find(Symbol.class, id);
 	}
 
-	public Word update(String id, Word newPalabra) {
-		Word visitor = db.find(Word.class, id);
-		visitor.setName(newPalabra.getName());
+	public Symbol update(String id, Symbol newPalabra) {
+		Symbol visitor = db.find(Symbol.class, id);
+		//visitor.setName(newPalabra.getName());
+		visitor.setJsonData(newPalabra.getJsonData());
+		visitor.setNewsJson(newPalabra.getNewsJson());
+		visitor.setSymbolId(newPalabra.getSymbolId());
+		visitor.setNews(newPalabra.getNews());
+				
 		db.update(visitor);
-		return db.find(Word.class, id);
+		return db.find(Symbol.class, id);
 		
 	}
 	
 	public void delete(String id) {
-		Word visitor = db.find(Word.class, id);
-		db.remove(id, visitor.get_rev());
+		Symbol visitor = db.find(Symbol.class, id);
+		db.remove(id, visitor.getSymbolId());
 		
 	}
 
