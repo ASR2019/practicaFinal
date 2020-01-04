@@ -1,0 +1,15 @@
+metodos para:
+	coger info del mercado de un simbolo	//public static String getJSONStockData(String symbol)
+	coger noticias				//public static String getJSONNewsFeed(String symbol)
+	analisis de sent de una noticia/ coger noticias con sus analisis
+
+    public static YahooNew analisisSentimientoNoticia(YahooNew noticia)	{
+    	
+    	YahooNew aux = new YahooNew();
+    	AnalysisResults analisis = NLUService.analisisSentimientoURL(noticia.getLink());
+    	Double score = analisis.getSentiment().getDocument().getScore();
+    	noticia.setScore(score);
+    	aux = noticia;
+    	
+    	return aux;
+    }

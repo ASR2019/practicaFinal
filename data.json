@@ -1,0 +1,212 @@
+{
+  "rss": {
+    "channel": {
+      "image": {
+        "link": "http://finance.yahoo.com/q/h?s\u003dGOOGL",
+        "width": 144,
+        "title": "Yahoo! Finance: GOOGL News",
+        "url": "http://l.yimg.com/a/i/brand/purplelogo/uh/us/fin.gif",
+        "height": 45
+      },
+      "copyright": "Copyright (c) 2019 Yahoo! Inc. All rights reserved.",
+      "item": [
+        {
+          "link": "https://finance.yahoo.com/news/alphabet-googl-4-2-since-143002228.html?.tsrc\u003drss",
+          "description": "Alphabet (GOOGL) reported earnings 30 days ago. What\u0026#39;s next for the stock? We take a look at earnings estimates for some clues.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "242b963f-4848-3a9c-b2fa-420b350a7d6d"
+          },
+          "title": "Alphabet (GOOGL) Up 4.2% Since Last Earnings Report: Can It Continue?",
+          "pubDate": "Wed, 27 Nov 2019 14:30:02 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/m/634522b0-b805-38ea-9c8f-6a60044a7992/3-reasons-to-not-do-your.html?.tsrc\u003drss",
+          "description": "Online shopping is expected to hit new highs this holiday season — and a lot of it will happen on smartphones.  This year, $1 out of every $5 dollars spent from November through December will go toward an online purchase, according to a forecast from Adobe Digital Insights.  Over a third (36%) of e-commerce sales this year are expected to be made on a smartphone, according to Adobe, a 20% increase from a year ago, and smartphones are expected to account for 47% of overall sales growth during the holiday season in 2019.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "634522b0-b805-38ea-9c8f-6a60044a7992"
+          },
+          "title": "3 reasons to not do your holiday shopping on your smartphone",
+          "pubDate": "Wed, 27 Nov 2019 11:46:00 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/m/0a961914-a1ad-3002-b1eb-b97f0ea677ac/making-sausage%3A-how-the.html?.tsrc\u003drss",
+          "description": "A document filed with the SEC reveals the behind-the-scenes competition between Alphabet and another suitor for the hand of the smartwatch maker.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "0a961914-a1ad-3002-b1eb-b97f0ea677ac"
+          },
+          "title": "Making Sausage: How the Fitbit Deal Got Done",
+          "pubDate": "Wed, 27 Nov 2019 11:00:00 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/m/434f60c5-ae19-3377-86a5-4c8941eb556a/10-%E2%80%98stellar%E2%80%99-growth-stocks.html?.tsrc\u003drss",
+          "description": "Goldman Sachs expects a tempered bull market to continue next year and provides a list of stocks that could outperform.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "434f60c5-ae19-3377-86a5-4c8941eb556a"
+          },
+          "title": "10 ‘Stellar’ Growth Stocks for a ‘Range-Bound’ Bull Market",
+          "pubDate": "Wed, 27 Nov 2019 08:14:49 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/m/66c8e1cc-b415-3581-bf82-89bf5a7ac705/%5Bvideo%5Dfacebook%26%2339%3Bs.html?.tsrc\u003drss",
+          "description": "This week, we learned about an intriguing tech deal that wasn\u0027t: A failed bid by Facebook to buy Fitbit.  In a recent SEC filing, Fitbit  reported that a company called Party A had offered $7.30 per share for Fitbit -- but was ultimately bested by Google, which offered $7.35 per share, or $2.1 billion, for the wearables firm.  Facebook  shares closed 0.41% lower on Tuesday to $198.97, while Alphabet  ticked up 0.56% to $1,313.00.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "66c8e1cc-b415-3581-bf82-89bf5a7ac705"
+          },
+          "title": "[video]Facebook\u0026#39;s Unsuccessful Bid for Fitbit Highlights Struggles in Hardware",
+          "pubDate": "Wed, 27 Nov 2019 08:00:00 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/news/moore-capital-final-letter-latest-230419959.html?.tsrc\u003drss",
+          "description": "Billionaire Louis Bacon\u0026#39;s Moore Capital is closing its doors to new clients, returning money to its existing clients, and consolidating its three funds into a single fund. Bacon is also stepping away from managing day-to-day operations. Below you can see a copy of the letter (hat tip: Zerohedge): Dear Investor, As Moore Capital Management (MCM) […]",
+          "guid": {
+            "isPermaLink": false,
+            "content": "4951b64e-7298-3235-829d-8394deed4f1f"
+          },
+          "title": "Moore Capital’s Final Letter and Latest Stock Picks",
+          "pubDate": "Tue, 26 Nov 2019 23:04:19 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/m/5543c768-6cd0-3277-b2a9-034436b67824/republicans-criticize.html?.tsrc\u003drss",
+          "description": "President Donald Trump’s reelection campaign and the Republican National Committee are harshly criticizing tech giant Google for making it harder for political advertisers to target specific types of people",
+          "guid": {
+            "isPermaLink": false,
+            "content": "5543c768-6cd0-3277-b2a9-034436b67824"
+          },
+          "title": "Republicans criticize Google’s new policy reining in political ads",
+          "pubDate": "Tue, 26 Nov 2019 22:14:00 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/news/trump-campaign-says-google-ad-183526227.html?.tsrc\u003drss",
+          "description": "(Bloomberg) -- Donald Trump’s campaign assailed Google on Tuesday for changing its rules on political advertisements, charging that new limits imposed by the most-used U.S. internet search service would suppress voter participation in the 2020 election.“There can be no denying that President Trump and his campaign have built the greatest digital operation in all of politics, and that Google’s decision will disproportionately impact both the Trump operation and all of the Republican candidates and organizations that derive strength from it,” the campaign said in a statement. But it said Democrats would be unfairly impacted as well.“By severely restricting political advertising, Google is stifling the ability of citizens to participate in our democracy,” the campaign said. The statement was issued in conjunction with the Republican National Committee and other Republican Party election committees.Alphabet Inc.’s Google said last week that it would ban candidates from targeting election ads based on people’s political affiliation, though the messages can be tailored based on gender, age and geography. The company also is eliminating a feature called Customer Match for political advertisers. The tool lets marketers upload their own lists of email addresses or phone numbers, and target ads specifically at those people.A spokesperson for the company, who asked not to be identified, said in a statement that Google is aware that political strategists in both parties “have raised concerns about how our changes may alter their targeting strategies.”“We believe the balance we have struck -- allowing political ads to remain on our platforms while limiting narrow targeting that can reduce the visibility of ads and trust in the electoral processes -- is the right one,” according to the statement.Twitter Inc. has banned ads promoting political candidates on its platform altogether. Trump’s campaign manager, Brad Parscale, said that Twitter had “just walked away from hundreds of millions of dollars” after its announcement.Facebook, the largest platform for online political advertising, has been under pressure to rein in campaign activity. Many Democrats have said Facebook has an obligation to fact-check ads it serves to its users, a suggestion the company has rebuffed, saying it doesn’t want to police political speech.Google’s move has raised concerns from both parties, as well as non-profits who may be caught up in the new rules. Many campaigns use public voter rolls and canvasing campaigns to build lists of potential voters, which they then feed into digital advertising platforms to target specific individuals. Google won’t allow that on its system anymore.It’s not clear if the Trump campaigns claim that the changes disproportionately affect him and other Republicans is true. His campaign was widely known for expertly using Facebook to target specific people and places during the 2016 campaign, and Democratic supporters have criticized their party for not being as savvy. But small, grassroots campaigns also benefited from Google’s targeting tools because they were easy to use.(Updates with Google statement beginning in fifth paragraph)\u0026#92;--With assistance from Eric Newcomer, Gerrit De Vynck and Mark Bergen.To contact the reporter on this story: Mario Parker in Washington at mparker22@bloomberg.netTo contact the editors responsible for this story: Alex Wayne at awayne3@bloomberg.net, Bill FariesFor more articles like this, please visit us at bloomberg.com©2019 Bloomberg L.P.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "fe7961d2-0e15-352a-8a48-e214aa73583f"
+          },
+          "title": "Trump Campaign Says Google’s Ad Changes Will Suppress 2020 Vote",
+          "pubDate": "Tue, 26 Nov 2019 20:50:54 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/m/31a77e69-db2b-3a87-9a28-bd843ef0172e/democrats-target-silicon.html?.tsrc\u003drss",
+          "description": "Four Democratic senators on Tuesday rolled out a bill that aims to provide better protections of personal data in Washington’s latest response to Facebook’s Cambridge Analytica scandal and other Silicon Valley foul-ups.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "31a77e69-db2b-3a87-9a28-bd843ef0172e"
+          },
+          "title": "Democrats target Silicon Valley with privacy bill as bipartisan effort stalls in Congress",
+          "pubDate": "Tue, 26 Nov 2019 16:54:00 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/news/senate-democrats-introduce-privacy-bill-145526687.html?.tsrc\u003drss",
+          "description": "Senator Maria Cantwell, backed by three other Democrats, proposed legislation that would set penalties for digital giants like Alphabet Inc\u0027s Google and Facebook Inc if they mishandle users\u0027 personal data, the Washington Post reported on Tuesday.  The measure comes at a time when the luster of the Big Tech platforms, once praised as one of the most dynamic parts of the U.S. economy, has faded because of data breaches and discomfort over what information about people is being collected and what it is used for.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "cf556806-667a-38c6-b252-110b2939bd1c"
+          },
+          "title": "Senate Democrats introduce privacy bill with fines for privacy violations -Wash Post",
+          "pubDate": "Tue, 26 Nov 2019 14:55:26 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/news/google-secretively-collecting-health-data-140803175.html?.tsrc\u003drss",
+          "description": "Google now has access to the health histories of millions of Americans.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "9e76533a-5336-33c5-9d92-fe3dd72d8418"
+          },
+          "title": "Google is secretively collecting health data, and American workers should be worried",
+          "pubDate": "Tue, 26 Nov 2019 14:08:03 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/m/e71f1851-16a6-3bee-b2e0-5ce961cd88fd/%5Bvideo%5Dfitbit-up-on.html?.tsrc\u003drss",
+          "description": "Shares of Fitbit pick up the pace after a proxy filing reveals a surprise bidding war between Google and a mystery firm that may have pressured Google parent company Alphabet to move forward with its $2.1 billion all-cash offer.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "e71f1851-16a6-3bee-b2e0-5ce961cd88fd"
+          },
+          "title": "[video]Fitbit Up on Revelation of Counter-Bidder to Google, Report Says It Was Facebook",
+          "pubDate": "Tue, 26 Nov 2019 13:08:00 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/news/google-fires-four-employee-activists-091443493.html?.tsrc\u003drss",
+          "description": "Google said that the employees were involved in “systematic searches for other employees’ materials and work” in a manner that wasn’t required as per the defined scope of their jobs. Rebecca Rivers, who contested Google’s involvement in the U.S. Customs and Border Protection project, is one among the sacked, she confirmed on Twitter.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "49559daa-c630-3794-9b36-ff4dd5dddb7e"
+          },
+          "title": "Google Fires Four Employee Activists For \u0026#39;Data Security Breach\u0026#39;",
+          "pubDate": "Tue, 26 Nov 2019 12:18:57 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/news/google-must-help-stop-illegal-113315735.html?.tsrc\u003drss",
+          "description": "Google must do more to stop illegal online marketing of money-making schemes that can lead to small investors losing their savings, Britain\u0027s regulator said on Tuesday after it banned mass-marketing of mini-bonds.  The average investment for mini-bonds is 25,000 pounds, but they are not regulated by Britain\u0027s Financial Conduct Authority (FCA).  FCA Chief Executive Andrew Bailey said the watchdog wanted web services companies, especially Google, to help it stop illegal promotions online.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "a9ea1b9b-f22e-3c25-a784-31f8980c65ea"
+          },
+          "title": "Google must help stop illegal marketing of mini-bond schemes - UK regulator",
+          "pubDate": "Tue, 26 Nov 2019 11:33:15 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/news/loneliness-highbrow-teenage-songwriting-robot-111500888.html?.tsrc\u003drss",
+          "description": "(Bloomberg) -- Meet Yona. She loves reading Margaret Atwood and articles about teenage life and sings about loneliness and relationships on her newly released track.If this sounds a bit scripted, that’s because it is: Yona’s not human.Yona has been created by London-based company Auxuman and trained using artificial intelligence, fed on music and literature, and learning from reactions to her music posted online.Auxuman was co-founded by Ash Koosha, Isabella Winthrop and Negar Shaghaghi. It builds AI-based characters and licenses them for entertainment, branding or live performances. Along with Yona, Auxuman also created Mony, Zoya, Hexe and Gemini – each with their own individualities.Listen to the Podcast: Can AI Compose Good Music?“The question for me always was how I can make a very intriguing, complete and complex piece of music only using a computer,” Koosha said in an interview.Artificial intelligence is being used by the music industry to invent new tools and sounds or, in Auxuman’s case, entirely new musicians.One of the first major projects was launched several years ago by Sony’s CSL Research Lab in Paris, which developed a system called FlowMachines that learns music styles from a large database of songs.French composer Benoît Carré, who was working with the Sony researchers at the time, fed the machine 470 lead sheets of Jazz standards from 1930s up through the 1960s. The final result was his first AI-generated song, released in 2016: “The Ballad of the Shadow”.Carré continues to work with researcher Francois Pachet, who’s since moved to Spotify Technology SA, where he leads its Creator Technology Research Lab. They created other AI tools which Carré has employed in his latest album titled “American Folk Songs”, released in October.At Luxembourg-based Aiva Technologies, Chief Executive Officer Pierre Barreau taught an algorithm to learn patterns in music based on 30,000 scores by Johann Sebastian Bach, Ludwig van Beethoven, Wolfgang Amadeus Mozart and others. Aiva’s program helps composers create new music for background use in movies and commercials, or for corporate branding at events.Barreau and his team recently trained Aiva on compositions by the Czech composer Antonin Dvorak. The machine suggested a potential ending for an unfinished symphony by Dvorak, played for the first time by the Prague Philharmonic Orchestra in November.Despite the advances, the music industry is still far away from being subsumed entirely by AI-generated songs, according to music critic Anthony Fantano, host of YouTube channel The Needle Drop.Humans will always want to be able to play music as an outlet, Fantano said, and many still look to music as a way to relate to the hardships evoked by the artist.“That cannot simply be recreated with an AI,” he said.To contact the reporter on this story: Natalia Drozdiak in Brussels at ndrozdiak1@bloomberg.netTo contact the editors responsible for this story: Giles Turner at gturner35@bloomberg.net, Nate LanxonFor more articles like this, please visit us at bloomberg.com©2019 Bloomberg L.P.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "e7927d04-8a64-32d1-8265-9c97344a3bd4"
+          },
+          "title": "The Loneliness of a Highbrow Teenage Songwriting Robot",
+          "pubDate": "Tue, 26 Nov 2019 11:15:00 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/news/2019-sure-feels-lot-1998-110028265.html?.tsrc\u003drss",
+          "description": "(Bloomberg Opinion) -- If you like historical parallels, as I do, and particularly about markets, then here’s an intriguing one: What’s happening now in 2019 looks and feels a lot like it did in 1998. The obvious similarities are that, now as then, a U.S. president faces the threat of impeachment against the backdrop of a strong economy and surging stock market. Even “Friends” is still popular today, just as it was then. But it’s the finer affinities within those broader parallels that are most interesting, and in some ways instructive. Let’s take a look. For starters, when the U.S. House of Representatives commenced impeachment proceedings against Bill Clinton in October 1998, the then U.S. economic expansion was nearing the longest on record and would become the longest just over a year later. Donald Trump’s impeachment inquiry also coincides with an unusually long expansion, which overtook the Clinton-era boom last summer.  Another similarity is that the Federal Reserve cut short-term interest rates three times this year, as it did in 1998, to ward off concerns that the economy is slowing. Both times, the necessity of those cuts was far from evident, as the Fed’s dual mandate of maximum employment and price stability appeared to be safely in hand. The unemployment rate averaged 3.7% during the first 10 months of this year, compared with 4.5% over the same time in 1998. And core PCE, the Fed’s preferred inflation gauge, has averaged 1.6% so far this year, compared with 1.3% in 1998.  Then there’s the equity market. The freakishly resilient economy has been overshadowed by a stock market propelled to all-time highs by investors’ renewed obsession with technology. In 1998, every conceivable business — from pet products to groceries and toy stores — put up a website and called itself a tech company. Sound familiar? Everything is technology again, including retailers, office buildings, media companies, car makers and, yes, even the drivers.Tech enthusiasts are back on the chase. The NYSE FANG+ Index is to techies today what the Nasdaq 100 Index was in the late 1990s, housing investor darlings such as Tesla Inc., Netflix Inc., Amazon.com Inc., Facebook Inc. and Google parent Alphabet Inc. It has returned a blistering 23.2% a year from October 2014 through Friday, including dividends, the longest period for which numbers are available. That’s 11.8 percentage points a year better than the S\u0026P 500 Index over the same period, nearly the same margin by which the Nasdaq 100 outpaced the S\u0026P 500 over the same time through November 1998.  And once again, it’s been a miserable period for investors who declined to ditch their portfolios and chase tech. The FANG index has outpaced a balanced 60/40 portfolio of global stocks and U.S. bonds — as represented by the MSCI All Country World Index and Bloomberg Barclays U.S. Aggregate Bond Index — by a crushing 17 percentage points a year since October 2014, a reflection of low interest rates and sluggish foreign stock markets. Here, too, that’s nearly the same margin by which the Nasdaq 100 outpaced the 60/40 portfolio over the same time through November 1998. Those similarities are coincidental, of course, but it’s worth bearing in mind what followed back in November 1998. Over the next 16 months, rather than reverse course, the economy, the stock market and technology stocks all raced ahead, never mind the political circus swirling around them. The Nasdaq 100 gained another 183% from December 1998 to March 2000, while the S\u0026P 500 and the 60/40 portfolio settled for 31% and 20%, respectively.  The fear of missing out unleashed on investors already raw with tech envy during those fateful 16 months was more than many could bear. Perhaps most famous among them is billionaire investor Stanley Druckenmiller, who scooped up internet stocks in 1999 after betting against them earlier that year. Drunk with success, he plowed an additional $6 billion into tech stocks just before they collapsed in early 2000, handing him a $3 billion loss. Druckenmiller later recalled, “I already knew that I wasn’t supposed to do that. I was just an emotional basket case and couldn’t help myself.” He may as well have been speaking for an entire generation of investors.That doesn’t mean the end of the FANG era is imminent. On the contrary, 1998 is a good reminder that the agony of investors who managed to sidestep the fad so far may become the catalyst that keeps the party going a while longer.To contact the author of this story: Nir Kaissar at nkaissar1@bloomberg.netTo contact the editor responsible for this story: Beth Williams at bewilliams@bloomberg.netThis column does not necessarily reflect the opinion of the editorial board or Bloomberg LP and its owners.Nir Kaissar is a Bloomberg Opinion columnist covering the markets. He is the founder of Unison Advisors, an asset management firm. He has worked as a lawyer at Sullivan \u0026 Cromwell and a consultant at Ernst \u0026 Young. For more articles like this, please visit us at bloomberg.com/opinion©2019 Bloomberg L.P.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "c61e30a4-21dd-3298-ae23-4efc31fa1f4a"
+          },
+          "title": "It\u0026#39;s 2019, But It Sure Feels a Lot Like 1998 for Stocks",
+          "pubDate": "Tue, 26 Nov 2019 11:00:28 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/m/526792ae-2a0c-3da3-b236-4f2a537a084b/google-fires-four-workers-who.html?.tsrc\u003drss",
+          "description": "Google has fired four workers it accused of abusing its culture of radical openness, escalating a fight with activists on its staff who have campaigned against some of its work for the US government.  The dismissals followed an internal investigation that had found that the former employees had tapped into work or personal calendars of other Google workers.  “This is not how Google’s open culture works or was ever intended to work,” the company said in an internal email to staff, which was first reported by Bloomberg.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "526792ae-2a0c-3da3-b236-4f2a537a084b"
+          },
+          "title": "Google fires four workers who breached its data security policies",
+          "pubDate": "Tue, 26 Nov 2019 08:07:29 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/news/google-fires-four-employees-citing-214809319.html?.tsrc\u003drss",
+          "description": "(Bloomberg) -- Google fired four employees for what the technology giant said were violations of its data-security policies, escalating tension between management and activist workers at a company once revered for its open corporate culture.Alphabet Inc.’s Google sent an email describing the decision, titled “Securing our data,” to all employees on Monday, according to a copy of the document obtained by Bloomberg News. The company confirmed the contents of the memo but declined to comment further.Some Google staff have been protesting and organizing in the past two years over issues including the company’s work with the military, a censored search service in China and its handling of executives accused of sexual harassment.Some supporters of the fired workers said the organizing activities led to their dismissals.“With these firings, Google is ramping up its illegal retaliation,” according to a statement from workers who are organizing at the company. “This is classic union busting dressed up in tech industry jargon, and we won’t stand for it.”Google Workers Rise Up: Inside the ProtestsIn recent weeks, some workers have cited management moves -- such as implementing a tracking tool on employee’s web browsers and hiring a consulting firm known for anti-union work -- as attempts to curb activism. The company has denied those charges.One Google employee wrote on Twitter that the company was firing the employees to stamp out internal dissension.Google at War: Employees in Rebellion Over Military ContractsOn Friday, more than 200 people demonstrated outside Google’s San Francisco office for a protest organized by staff. The protesters demanded the company reinstate two employees who had been put on administrative leave, Rebecca Rivers and Laurence Berland.On Monday, Rivers tweeted that she had been terminated from her job. Rivers confirmed the tweet but declined to comment further.Rivers had said she was being targeted for protesting against U.S. Customs and Border Protection, which is testing a Google cloud product. Berland was active in protests against YouTube for its handling of hate speech policies. Both said last week that they didn’t trust the company’s official explanation for punishing them.Federal labor law restricts retaliation against employees for collective action. “When other employees have engaged in the conduct Google cites in its memo, have they been fired?” said Jeffrey Hirsch, a University of North Carolina law professor and former National Labor Relations Board attorney. “If not, Google will likely have to reinstate the employees and pay them back pay.“One Google Staffer Fired, Two Others Put on Leave Amid TensionsBelow is the full memo that went out on Monday from Chris Rackow, Royal Hansen and Heather Adkins on behalf of Google’s Security and Investigations Team:We’ve seen a recent increase in information being shared outside the company, including the names and details of our employees. Our teams are committed to investigating these issues, and today we’ve dismissed four employees for clear and repeated violations of our data security policies.There’s been some misinformation circulating about this investigation, both internally and externally. We want to be clear that none of these individuals were fired for simply looking at documents or calendars during the ordinary course of their work.To the contrary, our thorough investigation found the individuals were involved in systematic searches for other employees’ materials and work. This includes searching for, accessing, and distributing business information outside the scope of their jobs — repeating this conduct even after they were met with and reminded about our data security policies. This information, along with details of internal emails and inaccurate descriptions about Googlers’ work, was subsequently shared externally.In one case, among other information they accessed and copied, an individual subscribed to the calendars of a wide range of employees outside of their work group. The individual set up notifications so that they received emails detailing the work and whereabouts of those employees, including personal matters such as 1:1s, medical appointments and family activities — all without those employees’ knowledge or consent. When the affected Googlers discovered this, many reported that they felt scared or unsafe, and requested to work from another location. Screenshots of some of their calendars, including their names and details, subsequently made their way outside the company.We have always taken information security very seriously, and will not tolerate efforts to intimidate Googlers or undermine their work, nor actions that lead to the leak of sensitive business or customer information. This is not how Google’s open culture works or was ever intended to work. We expect every member of our community to abide by our data security policies.Fortunately, these types of activities are rare. Thank you to everyone who does the right thing every day — doing amazing work, while inspiring and maintaining the trust of our users, partners, and each other.(Updates with a story tout in the 12th paragraph. A previous version corrected the spelling of an employee’s name.)\u0026#92;--With assistance from Josh Eidelson.To contact the reporters on this story: Gerrit De Vynck in New York at gdevynck@bloomberg.net;Mark Bergen in San Francisco at mbergen10@bloomberg.net;Ryan Gallagher in Edinburgh at rgallagher76@bloomberg.netTo contact the editors responsible for this story: Jillian Ward at jward56@bloomberg.net, Andrew Pollack, Dan ReichlFor more articles like this, please visit us at bloomberg.com©2019 Bloomberg L.P.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "68a6b1a7-0935-38be-8547-3a3f2a944720"
+          },
+          "title": "Google Fires Four Workers, Including Staffer Tied to Protest",
+          "pubDate": "Tue, 26 Nov 2019 07:04:50 +0000"
+        },
+        {
+          "link": "https://finance.yahoo.com/news/stop-treating-american-expats-tax-070028379.html?.tsrc\u003drss",
+          "description": "(Bloomberg Opinion) -- An estimated 9 million American citizens living outside the U.S. face a tax nightmare those at home can’t imagine and none should ever suffer. The reason: The U.S. is one of only two countries in the world (the other is Eritrea) that taxes its citizens regardless of where they live.American expats don’t necessarily owe the U.S. any tax: They can deduct taxes paid to host countries, which are often higher, or take an exemption. But they have to file returns and disclosures regardless, at a significant cost in accounting fees, nuisance and needless anxiety. The rules are often unclear, and foreign employers and financial institutions don’t report the numbers in the way the Internal Revenue Service prefers. The penalties for even innocent mistakes can be draconian. The U.S. proceeds as though any citizen with a foreign bank account were a likely tax evader or money launderer. Citizens with foreign assets must disclose them not only to the IRS but also to the Financial Crimes Enforcement Network.Surprisingly enough, people who live and work abroad tend to acquire other overseas assets along the way. The IRS sees a plain-vanilla European mutual fund, for example, as a “passive foreign investment company,” and requires disclosures that are Kafkaesque. The Obama-era Foreign Account Tax Compliance Act made things worse. It threatens foreign banks with drastic penalties if they fail to provide information on customers who are “U.S. persons” (citizens or green-card holders). As a result, many financial institutions simply refuse to serve Americans at all.Owing to the original sin of citizen-based taxation, moreover, every tweak to American tax law seems to exacerbate the problem. President Donald Trump’s reform of 2017 added rules aimed at the overseas profits of U.S. companies. Inadvertently, the IRS now treats the American owner of a lemonade stand in Belgium like Google, forcing them to declare a new kind of income known — say it out loud to feel it —  as GILTI.The original targets of this harsh regime were rich Americans living in the U.S. and stashing money in hidden offshore accounts. But hardened tax cheats developed new evasion strategies long ago. The victims today are Americans abroad with ordinary incomes and no special tax expertise. They include “accidental Americans” who aren’t even aware of the rules — children born in the U.S. while their foreign parents happened to be visiting, for instance, or people born and living abroad whose fathers were U.S. soldiers.Some U.S. expats renounce their citizenship, but few want to cut ties to their country, and for most the cost is prohibitive in any case. They should never be made to feel that it’s necessary. At a minimum, the U.S. should simplify the rules for its expats and raise the balance thresholds so middle-income filers are exempt. But the best solution would be even simpler: Follow the example set by almost every other economy (did I mention Eritrea?) and base the personal income tax on residency, not citizenship.To contact the author of this story: Andreas Kluth at akluth1@bloomberg.netTo contact the editor responsible for this story: James Boxell at jboxell@bloomberg.netThis column does not necessarily reflect the opinion of the editorial board or Bloomberg LP and its owners.Andreas Kluth is a member of Bloomberg\u0026#39;s editorial board. He was previously editor in chief of Handelsblatt Global and a writer for the Economist. For more articles like this, please visit us at bloomberg.com/opinion©2019 Bloomberg L.P.",
+          "guid": {
+            "isPermaLink": false,
+            "content": "8e650447-1aee-3df7-a303-dcace7a26048"
+          },
+          "title": "Stop Treating American Expats Like Tax Cheats",
+          "pubDate": "Tue, 26 Nov 2019 07:00:28 +0000"
+        }
+      ],
+      "lastBuildDate": "Wed, 27 Nov 2019 17:40:25 +0000",
+      "link": "http://finance.yahoo.com/q/h?s\u003dGOOGL",
+      "description": "Latest Financial News for GOOGL",
+      "language": "en-US",
+      "title": "Yahoo! Finance: GOOGL News"
+    },
+    "version": 2
+  }
+}

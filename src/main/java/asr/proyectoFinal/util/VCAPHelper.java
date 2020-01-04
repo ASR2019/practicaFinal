@@ -21,10 +21,10 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class VCAPHelper {
 	static String VCAP_SERVICES = System.getenv("VCAP_SERVICES");
@@ -34,7 +34,7 @@ public class VCAPHelper {
 			return null;
 		}
 		//Convert VCAP_SERVICES String to JSON
-		JsonObject obj = (JsonObject) new JsonParser().parse(VCAP_SERVICES);		
+		JsonObject obj = (JsonObject) new Gson().fromJson(VCAP_SERVICES, JsonObject.class);		
 		Entry<String, JsonElement> dbEntry = null;
 		Set<Entry<String, JsonElement>> entries = obj.entrySet();
 		
