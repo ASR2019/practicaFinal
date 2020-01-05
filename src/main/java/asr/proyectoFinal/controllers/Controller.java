@@ -3,6 +3,7 @@ package asr.proyectoFinal.controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -28,12 +29,25 @@ import asr.proyectoFinal.services.NLUService;
 @WebServlet(urlPatterns = {"/news", "/stock", "/score", "/data"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	private static ArrayList<Symbol> symbols = new ArrayList<Symbol>();
+	private static CloudantService store;
+	private static Map<String,String> dbRefs;
+
+	public void init() throws ServletException {
+		// Create database client
+		store = new CloudantService();
+
+		// Get references for database
+		dbRefs = store.getReferences();
+
+		System.out.println(dbRefs);
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		CloudantService store = new CloudantService();
-
+		System.out.println(dbRefs);
+		
 		// Response parameters
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
@@ -46,18 +60,24 @@ public class Controller extends HttpServlet {
 		String symbolString = request.getParameter("symbol");
 		String newId = request.getParameter("id");
 
-		// Find symbol if exists
+		// Find symbol if exists on memory
 		Symbol targetSymbol = symbols
 								.stream()
 								.filter(symbol -> symbol.getSymbolId().equals(symbolString))
 								.findFirst()
-								.orElse(new Symbol(symbolString));
-
-		// Paths
+								.orElse(null);
+		
+		// Find symbol on database through references
+		if(targetSymbol == null) {
+			System.out.println(dbRefs.keySet().contains(symbolString));
+			System.out.println(symbolString);
+			targetSymbol = dbRefs.keySet().contains(symbolString) ? store.get(dbRefs.get(symbolString)) : new Symbol(symbolString);
+		}
+		// Path management
 		try {
 			System.out.println(request.getServletPath());
 			switch(request.getServletPath()) {
-				// Return news from a given symbol
+				// Return news for a given symbol
 				case "/news":
 					ArrayList<YahooNew> newsFeed = targetSymbol.updateNews();				
 					
@@ -100,8 +120,10 @@ public class Controller extends HttpServlet {
 			Symbol storedSymbol;
 			if(targetSymbol.get_id() != null)
 				storedSymbol = store.update(targetSymbol.get_id(), targetSymbol);
-			else
+			else {
 				storedSymbol = store.persist(targetSymbol);
+				dbRefs.put(storedSymbol.getSymbolId(), storedSymbol.get_id());
+			}
 
 			// Remove original symbol
 			symbols = symbols

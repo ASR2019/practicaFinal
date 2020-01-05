@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 // import com.cloudant.client.api.Changes;
 import com.cloudant.client.api.ClientBuilder;
@@ -93,6 +95,13 @@ public class CloudantService {
         return docs;
 	}
 	
+	public Map<String,String> getReferences(){
+        Map<String,String> refs;
+		
+		refs = this.getAll().stream().collect(Collectors.toMap(Symbol::getSymbolId,Symbol::get_id));
+		
+        return refs;
+	}
 	
 	public Symbol get(String id) {
 		return db.find(Symbol.class, id);
