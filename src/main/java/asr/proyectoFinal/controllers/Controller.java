@@ -27,7 +27,7 @@ import asr.proyectoFinal.services.TranslatorService;
 /**
  * Servlet implementation class Controller
  */
-@WebServlet(urlPatterns = {"/news", "/stock", "/score", "/data"})
+@WebServlet(urlPatterns = {"/news", "/stock", "/score", "/data", "/translate"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -62,19 +62,24 @@ public class Controller extends HttpServlet {
 		String newId = request.getParameter("id");
 		String targetLanguage = request.getParameter("lang");
 
-		// Find symbol if exists on memory
-		Symbol targetSymbol = symbols
+		Symbol targetSymbol = null;
+
+		if(symbolString != null) {
+			// Find symbol if exists on memory
+			targetSymbol = symbols
 								.stream()
 								.filter(symbol -> symbol.getSymbolId().equals(symbolString))
 								.findFirst()
 								.orElse(null);
-		
-		// Find symbol on database through references
-		if(targetSymbol == null) {
-			System.out.println(dbRefs.keySet().contains(symbolString));
-			System.out.println(symbolString);
-			targetSymbol = dbRefs.keySet().contains(symbolString) ? store.get(dbRefs.get(symbolString)) : new Symbol(symbolString);
+			
+			// Find symbol on database through references
+			if(targetSymbol == null) {
+				System.out.println(dbRefs.keySet().contains(symbolString));
+				System.out.println(symbolString);
+				targetSymbol = dbRefs.keySet().contains(symbolString) ? store.get(dbRefs.get(symbolString)) : new Symbol(symbolString);
+			}
 		}
+
 		// Path management
 		try {
 			System.out.println(request.getServletPath());
@@ -118,31 +123,31 @@ public class Controller extends HttpServlet {
 					break;
 				
 				case "/translate":
-					String content = "";
+					String content = request.getParameter("q");
 					String result = TranslatorService.translate(content, targetLanguage);
 
 					out.println(gson.toJson(result));
 			}
 
-			// Store modified symbol on DB
-			Symbol storedSymbol;
-			if(targetSymbol.get_id() != null)
-				storedSymbol = store.update(targetSymbol.get_id(), targetSymbol);
-			else {
-				storedSymbol = store.persist(targetSymbol);
-				dbRefs.put(storedSymbol.getSymbolId(), storedSymbol.get_id());
+			if(targetSymbol != null) {
+				// Store modified symbol on DB
+				Symbol storedSymbol;
+				if(targetSymbol.get_id() != null)
+					storedSymbol = store.update(targetSymbol.get_id(), targetSymbol);
+				else {
+					storedSymbol = store.persist(targetSymbol);
+					dbRefs.put(storedSymbol.getSymbolId(), storedSymbol.get_id());
+				}
+
+				// Remove original symbol from memory
+				symbols = symbols
+							.stream()
+							.filter(symbol -> !symbol.getSymbolId().equals(symbolString))
+							.collect(Collectors.toCollection(ArrayList::new));
+
+				// Add modified symbol to memory
+				symbols.add(storedSymbol);
 			}
-
-			// Remove original symbol from memory
-			symbols = symbols
-						.stream()
-						.filter(symbol -> !symbol.getSymbolId().equals(symbolString))
-						.collect(Collectors.toCollection(ArrayList::new));
-
-			// Add modified symbol to memory
-			symbols.add(storedSymbol);
-
-
 		} catch(Exception e) {
 			out.println(e.toString());
 		}

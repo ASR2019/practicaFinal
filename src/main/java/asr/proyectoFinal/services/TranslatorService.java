@@ -9,6 +9,8 @@ import com.google.gson.JsonParser;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.language_translator.v3.LanguageTranslator;
+import com.ibm.watson.language_translator.v3.model.IdentifiedLanguages;
+import com.ibm.watson.language_translator.v3.model.IdentifyOptions;
 import com.ibm.watson.language_translator.v3.model.TranslateOptions;
 import com.ibm.watson.language_translator.v3.model.TranslationResult;
 
@@ -26,9 +28,21 @@ public class TranslatorService {
 		// Create client if not existing
 		if(languageTranslator == null)
 			TranslatorService.createClient();
+
+		// Identify source language
+		IdentifyOptions identifyOptions = new IdentifyOptions.Builder()
+			.text(content)
+			.build();
+	  
+	  	IdentifiedLanguages languages = languageTranslator.identify(identifyOptions)
+		.execute().getResult();
+
+		String sourceLanguage = languages.getLanguages().get(0).getLanguage();
 		
+		// Translate
 		TranslateOptions translateOptions = new TranslateOptions.Builder()
 			.addText(content)
+			.source(sourceLanguage)
 			.target(targetLanguage)
 			.build();
 		
