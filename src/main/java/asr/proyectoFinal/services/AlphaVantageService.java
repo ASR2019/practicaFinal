@@ -4,21 +4,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.io.FileWriter;
+// import java.io.FileWriter;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
+// import java.sql.Time;
+// import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Date;
+// import java.util.Date;
 
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;

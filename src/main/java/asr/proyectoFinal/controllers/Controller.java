@@ -3,10 +3,7 @@ package asr.proyectoFinal.controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-// import java.util.List;
-// import java.util.Map;
-// import java.util.stream.Collectors;
-import java.util.stream.Collector;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -17,19 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-//import com.google.gson.JsonArray;
-//import com.google.gson.JsonObject;
-//import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 
 import asr.proyectoFinal.models.Candle;
 import asr.proyectoFinal.models.Symbol;
 import asr.proyectoFinal.models.YahooNew;
-// import asr.proyectoFinal.services.AlphaVantageService;
+import asr.proyectoFinal.services.CloudantService;
 import asr.proyectoFinal.services.NLUService;
-//import asr.proyectoFinal.services.CloudantService;
-//import asr.proyectoFinal.services.NLUService;
-// import asr.proyectoFinal.services.YahooService;
 
 /**
  * Servlet implementation class Controller
@@ -41,7 +32,7 @@ public class Controller extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		//CloudantService store = new CloudantService();
+		CloudantService store = new CloudantService();
 
 		// Response parameters
 		PrintWriter out = response.getWriter();
@@ -64,6 +55,7 @@ public class Controller extends HttpServlet {
 
 		// Paths
 		try {
+			System.out.println(request.getServletPath());
 			switch(request.getServletPath()) {
 				// Return news from a given symbol
 				case "/news":
@@ -104,6 +96,13 @@ public class Controller extends HttpServlet {
 					break;
 			}
 
+			// Store modified symbol
+			Symbol storedSymbol;
+			if(targetSymbol.get_id() != null)
+				storedSymbol = store.update(targetSymbol.get_id(), targetSymbol);
+			else
+				storedSymbol = store.persist(targetSymbol);
+
 			// Remove original symbol
 			symbols = symbols
 						.stream()
@@ -111,7 +110,8 @@ public class Controller extends HttpServlet {
 						.collect(Collectors.toCollection(ArrayList::new));
 
 			// Add modified symbol
-			symbols.add(targetSymbol);
+			symbols.add(storedSymbol);
+
 
 		} catch(Exception e) {
 			out.println(e.toString());

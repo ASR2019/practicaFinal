@@ -7,9 +7,11 @@ import asr.proyectoFinal.services.AlphaVantageService;
 import asr.proyectoFinal.services.YahooService;
 
 public class Symbol {
-	String symbolId;
-	ArrayList<Candle> stock;
-	ArrayList<YahooNew> news;
+	private String _id = null;
+	private String _rev = null;
+	private String symbolId;
+	private ArrayList<Candle> stock;
+	private ArrayList<YahooNew> news;
 
 	public Symbol(String symbolId) {
 		this.setSymbolId(symbolId);
@@ -19,6 +21,44 @@ public class Symbol {
 		this.setSymbolId(symbolId);
 		this.setStock(stock);
 		this.setNews(news);
+	}
+
+	/**
+	 * Gets the ID.
+	 * 
+	 * @return The ID.
+	 */
+	public String get_id() {
+		return _id;
+	}
+
+	/**
+	 * Sets the ID
+	 * 
+	 * @param _id
+	 *            The ID to set.
+	 */
+	public void set_id(String _id) {
+		this._id = _id;
+	}
+
+	/**
+	 * Gets the revision of the document.
+	 * 
+	 * @return The revision of the document.
+	 */
+	public String get_rev() {
+		return _rev;
+	}
+
+	/**
+	 * Sets the revision.
+	 * 
+	 * @param _rev
+	 *            The revision to set.
+	 */
+	public void set_rev(String _rev) {
+		this._rev = _rev;
 	}
 
 	public String getSymbolId() {

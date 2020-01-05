@@ -20,15 +20,15 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 
-import com.cloudant.client.api.Changes;
+// import com.cloudant.client.api.Changes;
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
-import com.cloudant.client.api.model.ChangesResult;
+// import com.cloudant.client.api.model.ChangesResult;
 import com.google.gson.JsonObject;
 
 import asr.proyectoFinal.models.Symbol;
-import asr.proyectoFinal.models.Word;
+// import asr.proyectoFinal.models.Word;
 import asr.proyectoFinal.util.VCAPHelper;
 
 public class CloudantService {
@@ -57,22 +57,22 @@ public class CloudantService {
 	/**
 	 * https://static.javadoc.io/com.cloudant/cloudant-client/2.18.0/com/cloudant/client/api/Changes.html
 	 */
-	public void test() {
-		// feed type continuous
- 		Changes changes = db.changes()
- 			.includeDocs(true)
-			.heartBeat(30000)
- 			.continuousChanges();
+	// public void test() {
+	// 	// feed type continuous
+ 	// 	Changes changes = db.changes()
+ 	// 		.includeDocs(true)
+	// 		.heartBeat(30000)
+ 	// 		.continuousChanges();
 
-			while (changes.hasNext()) {
- 				ChangesResult.Row feed = changes.next();
-				String docId = feed.getId();
-				JsonObject doc = feed.getDoc();
-			}
+	// 		while (changes.hasNext()) {
+ 	// 			ChangesResult.Row feed = changes.next();
+	// 			String docId = feed.getId();
+	// 			JsonObject doc = feed.getDoc();
+	// 		}
 
-				//while loop blocks; stop from another thread
-			changes.stop(); // stop continuous feed
-	}
+	// 			//while loop blocks; stop from another thread
+	// 		changes.stop(); // stop continuous feed
+	// }
 	// public <T> Collection<T> getAll(Class<T> classOfT){
 	// 	List<T> docs;
 	// 	try {
@@ -106,7 +106,7 @@ public class CloudantService {
 
 	public Symbol update(String id, Symbol newSymbol) {
 		Symbol visitor = db.find(Symbol.class, id);
-		//visitor.setName(newPalabra.getName());
+
 		visitor.setStock(newSymbol.getStock());
 		visitor.setNews(newSymbol.getNews());
 		visitor.setSymbolId(newSymbol.getSymbolId());
@@ -152,6 +152,7 @@ public class CloudantService {
 		try {
 			System.out.println("Connecting to Cloudant");
 			CloudantClient client = ClientBuilder.url(new URL(url)).build();
+			System.out.println("Connected!");
 			return client;
 		} catch (Exception e) {
 			System.out.println("Unable to connect to database");
