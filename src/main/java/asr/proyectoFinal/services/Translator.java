@@ -1,6 +1,7 @@
 package asr.proyectoFinal.services;
 
 import asr.proyectoFinal.models.YahooNew;
+import asr.proyectoFinal.util.VCAPHelper;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -12,44 +13,68 @@ import com.ibm.watson.language_translator.v3.model.TranslateOptions;
 import com.ibm.watson.language_translator.v3.model.TranslationResult;
 
 public class Translator {
+
+	private static String apiKey = null;
+	private static String apiUrl = null;
+	private static LanguageTranslator languageTranslator = null;
 	
-	public static YahooNew translateToSpanish(YahooNew noticia)	{
-		YahooNew aux = noticia;
-		String description = noticia.getDescription();
-		String translatedDescription = Translator.translate(description, "en", "es", true);
-		aux.setTranslatedDescription(translatedDescription);
-				
-		return aux;	
+	public static String translate(String content, String targetLanguage)	{
+		// Check credentials
+		if(apiKey == null || apiUrl == null)
+			Translator.setCredentials();
+
+		// Create client if not existing
+		if(languageTranslator == null)
+			Translator.createClient();
+		
+		TranslateOptions translateOptions = new TranslateOptions.Builder()
+			.addText(content)
+			.target(targetLanguage)
+			.build();
+		
+		TranslationResult translationResult = languageTranslator.translate(translateOptions).execute().getResult();
+		
+		System.out.println(translationResult);
+		
+		String jsonTranslation = translationResult.toString();
+		JsonObject rootObj = JsonParser.parseString(jsonTranslation).getAsJsonObject();
+		JsonArray translations = rootObj.getAsJsonArray("translations");
+		String firstTranslation = content;
+		
+		if(translations.size() > 0)
+			firstTranslation = translations.get(0).getAsJsonObject().get("translation").getAsString();
+		
+		return firstTranslation;
 	}
-	
-	public static String translate(String palabra, String sourceModel, String destModel, boolean conversational)	{
-			String model;
-			if(sourceModel.equals("en") || sourceModel.equals("es") ||
-			destModel.equals("en") || destModel.equals("es"))
-			{
-			model=sourceModel+"-"+destModel;
-			if(conversational)
-			model+="-conversational";
-			}
-			else
-			model="en-es";
-			Authenticator authenticator = new IamAuthenticator("sGBqIGkLecdsa4RdsA3imHp_lvb7MMlZNzdasq-PgkmCXdsf59P0");
-			LanguageTranslator languageTranslator = new LanguageTranslator("2018-05-01",
-			authenticator);
-			languageTranslator.setServiceUrl("https://gatewaylon.watsonplatform.net/language-translator/api");
-			TranslateOptions translateOptions = new TranslateOptions.Builder()
-			 .addText(palabra)
-			 .modelId(model)
-			 .build();
-			TranslationResult translationResult = languageTranslator.translate(translateOptions).execute().getResult();
-			System.out.println(translationResult);
-			String traduccionJSON = translationResult.toString();
-			JsonObject rootObj = JsonParser.parseString(traduccionJSON).getAsJsonObject();
-			JsonArray traducciones = rootObj.getAsJsonArray("translations");
-			String traduccionPrimera = palabra;
-			if(traducciones.size()>0)
-			traduccionPrimera =
-			traducciones.get(0).getAsJsonObject().get("translation").getAsString();
-			return traduccionPrimera;
-			}
+
+	private static void setCredentials() {
+		if (System.getenv("VCAP_SERVICES") != null) {
+            // When running in Bluemix, the VCAP_SERVICES env var will have the credentials
+            // for all bound/connected services
+            // Parse the VCAP JSON structure looking for language_translator.
+            JsonObject translatorCredentials = VCAPHelper.getCloudCredentials("language_translator");
+            if (translatorCredentials == null) {
+				System.out.println("No Language Translator service bound to this application");
+				return;
+            }
+			apiKey = translatorCredentials.get("apikey").getAsString();
+			apiUrl = translatorCredentials.get("url").getAsString();
+        } else {
+            System.out.println("Running locally. Looking for credentials in translator.properties");
+			apiKey = VCAPHelper.getLocalProperties("translator.properties").getProperty("translator_api");
+			apiUrl = VCAPHelper.getLocalProperties("translator.properties").getProperty("translator_url");
+            if (apiKey == null || apiKey.length() == 0 || apiUrl == null || apiUrl.length() == 0) {
+				System.out.println("To use Language Translator, set the Language Translator credentials (translator_api and translator_url) in src/main/resources/translator.properties");
+				return;
+            }
+		}
+	}
+
+	private static void createClient() {
+		Authenticator authenticator = new IamAuthenticator(apiKey);
+		
+		languageTranslator = new LanguageTranslator("2018-05-01", authenticator);
+		
+		languageTranslator.setServiceUrl(apiUrl);
+	}
 }

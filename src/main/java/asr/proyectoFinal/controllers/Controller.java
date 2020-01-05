@@ -116,7 +116,7 @@ public class Controller extends HttpServlet {
 					break;
 			}
 
-			// Store modified symbol
+			// Store modified symbol on DB
 			Symbol storedSymbol;
 			if(targetSymbol.get_id() != null)
 				storedSymbol = store.update(targetSymbol.get_id(), targetSymbol);
@@ -125,13 +125,13 @@ public class Controller extends HttpServlet {
 				dbRefs.put(storedSymbol.getSymbolId(), storedSymbol.get_id());
 			}
 
-			// Remove original symbol
+			// Remove original symbol from memory
 			symbols = symbols
 						.stream()
 						.filter(symbol -> !symbol.getSymbolId().equals(symbolString))
 						.collect(Collectors.toCollection(ArrayList::new));
 
-			// Add modified symbol
+			// Add modified symbol to memory
 			symbols.add(storedSymbol);
 
 

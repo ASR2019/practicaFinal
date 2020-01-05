@@ -20,6 +20,7 @@ public class NLUService {
 	
 	private static String nluUrl = null;
 	private static String nluApi = null;
+	private static NaturalLanguageUnderstanding naturalLanguageUnderstanding = null;
 	
 	// Sobre el texto dado se devuelve un análisis de sentimiento en torno a cada target asignando una puntuación de -1(negativo) a +1(positivo).
 	public static AnalysisResults sentimentAnalysis(YahooNew stockNew)	{
@@ -27,9 +28,8 @@ public class NLUService {
 			NLUService.setCredentials();
 		
 		// Validation to use the service
-		IamAuthenticator authenticator = new IamAuthenticator(nluApi);
-		NaturalLanguageUnderstanding naturalLanguageUnderstanding = new NaturalLanguageUnderstanding("2019-07-12", authenticator);
-		naturalLanguageUnderstanding.setServiceUrl(nluUrl);
+		if(naturalLanguageUnderstanding == null)
+			NLUService.createClient();
 
 		SentimentOptions sentiment = new SentimentOptions.Builder().build();
 		
@@ -60,7 +60,7 @@ public class NLUService {
 		if (System.getenv("VCAP_SERVICES") != null) {
             // When running in Bluemix, the VCAP_SERVICES env var will have the credentials
             // for all bound/connected services
-            // Parse the VCAP JSON structure looking for cloudant.
+            // Parse the VCAP JSON structure looking for natural-language-understanding.
             JsonObject nluCredentials = VCAPHelper.getCloudCredentials("natural-language-understanding");
             if (nluCredentials == null) {
 				System.out.println("No Natural Language Understanding service bound to this application");
@@ -77,5 +77,13 @@ public class NLUService {
 				return;
             }
         }
+	}
+
+	private static void createClient() {
+		IamAuthenticator authenticator = new IamAuthenticator(nluApi);
+
+		naturalLanguageUnderstanding = new NaturalLanguageUnderstanding("2019-07-12", authenticator);
+		
+		naturalLanguageUnderstanding.setServiceUrl(nluUrl);
 	}
 }
