@@ -1,6 +1,6 @@
 package asr.proyectoFinal.services;
 
-import asr.proyectoFinal.models.YahooNew;
+// import asr.proyectoFinal.models.YahooNew;
 import asr.proyectoFinal.util.VCAPHelper;
 
 import com.google.gson.JsonArray;
@@ -12,7 +12,7 @@ import com.ibm.watson.language_translator.v3.LanguageTranslator;
 import com.ibm.watson.language_translator.v3.model.TranslateOptions;
 import com.ibm.watson.language_translator.v3.model.TranslationResult;
 
-public class Translator {
+public class TranslatorService {
 
 	private static String apiKey = null;
 	private static String apiUrl = null;
@@ -21,11 +21,11 @@ public class Translator {
 	public static String translate(String content, String targetLanguage)	{
 		// Check credentials
 		if(apiKey == null || apiUrl == null)
-			Translator.setCredentials();
+			TranslatorService.setCredentials();
 
 		// Create client if not existing
 		if(languageTranslator == null)
-			Translator.createClient();
+			TranslatorService.createClient();
 		
 		TranslateOptions translateOptions = new TranslateOptions.Builder()
 			.addText(content)

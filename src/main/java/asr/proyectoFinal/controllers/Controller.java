@@ -22,6 +22,7 @@ import asr.proyectoFinal.models.Symbol;
 import asr.proyectoFinal.models.YahooNew;
 import asr.proyectoFinal.services.CloudantService;
 import asr.proyectoFinal.services.NLUService;
+import asr.proyectoFinal.services.TranslatorService;
 
 /**
  * Servlet implementation class Controller
@@ -59,6 +60,7 @@ public class Controller extends HttpServlet {
 		// Get request parameters
 		String symbolString = request.getParameter("symbol");
 		String newId = request.getParameter("id");
+		String targetLanguage = request.getParameter("lang");
 
 		// Find symbol if exists on memory
 		Symbol targetSymbol = symbols
@@ -114,6 +116,12 @@ public class Controller extends HttpServlet {
 					out.println(gson.toJson(targetSymbol));
 
 					break;
+				
+				case "/translate":
+					String content = "";
+					String result = TranslatorService.translate(content, targetLanguage);
+
+					out.println(gson.toJson(result));
 			}
 
 			// Store modified symbol on DB
