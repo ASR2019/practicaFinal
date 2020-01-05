@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Optional;
+// import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -79,7 +79,7 @@ public class Controller extends HttpServlet {
 			switch(request.getServletPath()) {
 				// Return news for a given symbol
 				case "/news":
-					ArrayList<YahooNew> newsFeed = targetSymbol.updateNews();				
+					ArrayList<YahooNew> newsFeed = targetSymbol.updateNews();			
 					
 					out.println(gson.toJson(newsFeed));
 					
