@@ -27,7 +27,7 @@ import asr.proyectoFinal.services.TranslatorService;
 /**
  * Servlet implementation class Controller
  */
-@WebServlet(urlPatterns = {"/news", "/stock", "/score", "/data", "/translate"})
+@WebServlet(urlPatterns = {"/api/news", "/api/stock", "/api/score", "/api/data", "/api/translate"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -85,7 +85,7 @@ public class Controller extends HttpServlet {
 			System.out.println(request.getServletPath());
 			switch(request.getServletPath()) {
 				// Return news for a given symbol
-				case "/news":
+				case "/api/news":
 					ArrayList<YahooNew> newsFeed = targetSymbol.updateNews();			
 					
 					out.println(gson.toJson(newsFeed));
@@ -93,7 +93,7 @@ public class Controller extends HttpServlet {
 					break;
 				
 				// Return the historic stock from a certain symbol
-				case "/stock":
+				case "/api/stock":
 					ArrayList<Candle> symbolStock = targetSymbol.updateStock();
 
 					out.println(gson.toJson(symbolStock));
@@ -101,7 +101,7 @@ public class Controller extends HttpServlet {
 					break;
 
 				// Get score for a Yahoo new
-				case "/score":
+				case "/api/score":
 					YahooNew targetNew = targetSymbol.getNews()
 													   .stream()
 													   .filter(n -> n.getGuid().getContent().equals(newId))
@@ -117,12 +117,12 @@ public class Controller extends HttpServlet {
 					break;
 				
 				// Get stored data from a symbol
-				case "/data":
+				case "/api/data":
 					out.println(gson.toJson(targetSymbol));
 
 					break;
 				
-				case "/translate":
+				case "/api/translate":
 					String content = request.getParameter("q");
 					String result = TranslatorService.translate(content, targetLanguage);
 
