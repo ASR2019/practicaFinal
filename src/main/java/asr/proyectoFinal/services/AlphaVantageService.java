@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Map.Entry;
 import java.util.Date;
 
@@ -266,6 +268,26 @@ public class AlphaVantageService {
             AlphaVantageService.setApiKey();
 
         // Form parameters
+        
+        String aux = "";
+		String content = null;
+		URLConnection connection = null;
+		try {
+		  connection =  new URL("http://www.google.com").openConnection();
+		  Scanner scanner = new Scanner(connection.getInputStream());
+		  scanner.useDelimiter("\\Z");
+		  content = scanner.next();
+		  scanner.close();
+		}catch ( Exception ex ) {
+		    ex.printStackTrace();
+		}
+		//System.out.println(content);
+		String translatedDescription = Translator.translate(content, "en", "es", true);
+		
+		
+		aux = translatedDescription;
+		System.out.println(aux);
+        		
         Map<String, String> parametersMap = new HashMap<>();
         parametersMap.put("function", "TIME_SERIES_INTRADAY");
         parametersMap.put("symbol", URLEncoder.encode(symbol, StandardCharsets.UTF_8.toString()));

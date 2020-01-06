@@ -2,6 +2,10 @@ package asr.proyectoFinal.services;
 
 import asr.proyectoFinal.models.YahooNew;
 
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Scanner;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -13,11 +17,37 @@ import com.ibm.watson.language_translator.v3.model.TranslationResult;
 
 public class Translator {
 	
+	public static String translateUrl(String url)	{
+		String aux = "";
+		String content = null;
+		URLConnection connection = null;
+		try {
+		  connection =  new URL(url).openConnection();
+		  Scanner scanner = new Scanner(connection.getInputStream());
+		  scanner.useDelimiter("\\Z");
+		  content = scanner.next();
+		  scanner.close();
+		}catch ( Exception ex ) {
+		    ex.printStackTrace();
+		}
+		//System.out.println(content);
+		String translatedDescription = Translator.translate(content, "en", "es", true);
+		
+		
+		aux = translatedDescription;		
+		return aux;	
+	}
+	
 	public static YahooNew translateToSpanish(YahooNew noticia)	{
 		YahooNew aux = noticia;
+		
 		String description = noticia.getDescription();
 		String translatedDescription = Translator.translate(description, "en", "es", true);
 		aux.setTranslatedDescription(translatedDescription);
+		
+		String title = noticia.getTitle();
+		String translatedTitle = Translator.translate(title, "en", "es", true);
+		aux.setTitle(translatedTitle);
 				
 		return aux;	
 	}
