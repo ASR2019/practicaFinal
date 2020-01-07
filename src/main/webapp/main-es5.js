@@ -383,7 +383,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<nb-layout>\n\n    <nb-layout-header fixed>\n        <a href=\"#\" (click)=\"toggle()\">\n            <nb-icon icon=\"menu-outline\"></nb-icon>\n        </a>\n    </nb-layout-header>\n  \n    <nb-sidebar>\n        <button nbButton [nbPopover]=\"addForm\" nbPopoverPlacement=\"bottom\" size=\"tiny\" *ngIf=\"this.collapsed; else fullWidthButton\"><nb-icon icon=\"plus\"></nb-icon></button>\n        \n        <ng-template #fullWidthButton>\n            <button nbButton fullWidth [nbPopover]=\"addForm\" nbPopoverPlacement=\"bottom\"><nb-icon icon=\"plus\"></nb-icon>Add Symbol</button>\n        </ng-template>\n\n        <ng-template #addForm>\n            <nb-card>\n                <nb-card-body>\n                    <form #f=\"ngForm\" (ngSubmit)=\"addSymbol(f)\">\n                        <div class=\"form-group\">\n                            <label for=\"name\">Name</label>\n                            <br/>\n                            <input type=\"text\" nbInput required name=\"name\" ngModel>\n                        </div>\n                        <div class=\"form-group\">\n                            <label for=\"acronym\">Acronym</label>\n                            <br/>\n                            <input type=\"text\" nbInput required name=\"acronym\" ngModel>\n                        </div>\n                        <br/>\n                        <button nbButton>Add</button>\n                    </form>\n                </nb-card-body>\n            </nb-card>\n        </ng-template>\n\n        <nb-menu tag=\"sidebar-menu\" [items]=\"items\"></nb-menu>\n    </nb-sidebar>\n  \n    <nb-layout-column>\n        <app-main-panel *ngIf=\"this.items.length > 0\" [symbol]=\"this.symbol\"></app-main-panel>\n        <!-- <router-outlet></router-outlet> -->\n    </nb-layout-column>\n  \n    <nb-layout-footer fixed class=\"colored-column-basic\">\n        Pedro Murcia &amp; Luis Puyol &copy; 2019-2020\n    </nb-layout-footer>\n</nb-layout>";
+    __webpack_exports__["default"] = "<nb-layout>\n\n    <nb-layout-header fixed>\n        <a href=\"#\" (click)=\"toggle()\">\n            <nb-icon icon=\"menu-outline\"></nb-icon>\n        </a>\n    </nb-layout-header>\n  \n    <nb-sidebar>\n        <button nbButton [nbPopover]=\"addForm\" nbPopoverPlacement=\"bottom\" size=\"tiny\" *ngIf=\"this.collapsed; else fullWidthButton\"><nb-icon icon=\"plus\"></nb-icon></button>\n        \n        <ng-template #fullWidthButton>\n            <button nbButton fullWidth [nbPopover]=\"addForm\" nbPopoverPlacement=\"bottom\"><nb-icon icon=\"plus\"></nb-icon>Add Symbol</button>\n        </ng-template>\n\n        <ng-template #addForm>\n            <nb-card>\n                <nb-card-body>\n                    <form #f=\"ngForm\" (ngSubmit)=\"addSymbol(f)\">\n                        <div class=\"form-group\">\n                            <label for=\"name\">Name</label>\n                            <br/>\n                            <input type=\"text\" nbInput required name=\"name\" ngModel>\n                        </div>\n                        <div class=\"form-group\">\n                            <label for=\"acronym\">Acronym</label>\n                            <br/>\n                            <input type=\"text\" nbInput required name=\"acronym\" ngModel>\n                        </div>\n                        <br/>\n                        <button nbButton>Add</button>\n                    </form>\n                </nb-card-body>\n            </nb-card>\n        </ng-template>\n\n        <nb-menu tag=\"sidebar-menu\" [items]=\"items\"></nb-menu>\n    </nb-sidebar>\n  \n    <nb-layout-column>\n        <app-main-panel *ngIf=\"this.items.length > 0\" [defaultData]=\"this.data\" [nbSpinner]=\"panelLoading\"></app-main-panel>\n        <!-- <router-outlet></router-outlet> -->\n    </nb-layout-column>\n  \n    <nb-layout-footer fixed class=\"colored-column-basic\">\n        Pedro Murcia &amp; Luis Puyol &copy; 2019-2020\n    </nb-layout-footer>\n</nb-layout>";
     /***/
   },
 
@@ -403,7 +403,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<app-stock-chart [symbol]=\"this.symbol\"></app-stock-chart>\n<app-news-table [symbol]=\"this.symbol\"></app-news-table>";
+    __webpack_exports__["default"] = "<app-stock-chart [symbol]=\"this.symbol\" [defaultData]=\"this.stockDefault\"></app-stock-chart>\n<app-news-table [symbol]=\"this.symbol\" [defaultData]=\"this.newsDefault\"></app-news-table>";
     /***/
   },
 
@@ -423,7 +423,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<nb-card>\n    <nb-card-header>\n      News about {{ this.symbol }}\n      <nb-icon icon=\"sync\" (click)=\"refreshNews()\" style=\"margin-left: 98%;\"></nb-icon>\n    </nb-card-header>\n    <nb-card-body [nbSpinner]=\"newsLoading\">\n\n        <label class=\"search-label\" for=\"search\">Search:</label>\n        <input type=\"text\" nbInput [nbFilterInput]=\"dataSource\" id=\"search\" placeholder=\"Search term...\">\n    \n        <table [nbTreeGrid]=\"dataSource\" [nbSort]=\"dataSource\" (sort)=\"updateSort($event)\">\n    \n          <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\n          <tr nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"></tr>\n    \n          <ng-container *ngFor=\"let column of allColumns; let index = index\" [nbTreeGridColumnDef]=\"column\">\n            <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\n              {{ allColumnHeaders[column] }}\n            </th>\n            <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" (click)=\"articleClicked(row.data);\" style=\"cursor: pointer;\">\n              <div *ngIf=\"column === 'score'; else defaultCell\">\n                <div *ngIf=\"row.data[column] != null; else loadingScore;\">\n                  <nb-icon icon=\"star\" [ngStyle]=\"{'color': getColorFromScore(row.data[column])}\"></nb-icon>\n                  {{ (row.data[column] | percent:'.2') || '-' }}\n                </div>\n\n                <ng-template #loadingScore>\n                  <nb-icon icon=\"sync\" (click)=\"refreshScore(row.data)\"></nb-icon>\n                </ng-template>\n              </div>\n              <ng-template #defaultCell>\n                {{ row.data[column] || '-' }}\n              </ng-template>\n            </td>\n          </ng-container>\n    \n        </table>\n    </nb-card-body>\n</nb-card>";
+    __webpack_exports__["default"] = "<nb-card *ngIf=\"this.data != null\">\n    <nb-card-header>\n      News about {{ this.symbol }}\n      <nb-icon icon=\"sync\" (click)=\"refreshNews()\" style=\"margin-left: 98%;\"></nb-icon>\n    </nb-card-header>\n    <nb-card-body [nbSpinner]=\"newsLoading\">\n\n        <label class=\"search-label\" for=\"search\">Search:</label>\n        <input type=\"text\" nbInput [nbFilterInput]=\"dataSource\" id=\"search\" placeholder=\"Search term...\">\n    \n        <table [nbTreeGrid]=\"dataSource\" [nbSort]=\"dataSource\" (sort)=\"updateSort($event)\">\n    \n          <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\n          <tr nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"></tr>\n    \n          <ng-container *ngFor=\"let column of allColumns; let index = index\" [nbTreeGridColumnDef]=\"column\">\n            <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\n              {{ allColumnHeaders[column] }}\n            </th>\n            <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" (click)=\"articleClicked(row.data);\" style=\"cursor: pointer;\">\n              <div *ngIf=\"column === 'score'; else defaultCell\">\n                <div *ngIf=\"row.data[column] != null; else loadingScore;\">\n                  <nb-icon icon=\"star\" [ngStyle]=\"{'color': getColorFromScore(row.data[column])}\"></nb-icon>\n                  {{ (row.data[column] | percent:'.2') || '-' }}\n                </div>\n\n                <ng-template #loadingScore>\n                  <nb-icon icon=\"plus\" (click)=\"refreshScore(row.data)\"></nb-icon>\n                </ng-template>\n              </div>\n              <ng-template #defaultCell>\n                {{ row.data[column] || '-' }}\n              </ng-template>\n            </td>\n          </ng-container>\n    \n        </table>\n    </nb-card-body>\n</nb-card>";
     /***/
   },
 
@@ -1287,13 +1287,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @angular/core */
     "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _server_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../server-api.service */
+    "./src/app/server-api.service.ts");
 
     var ArticleModalComponent =
     /*#__PURE__*/
     function () {
-      function ArticleModalComponent() {
+      function ArticleModalComponent(api) {
         _classCallCheck(this, ArticleModalComponent);
 
+        this.api = api;
         this.translationLoading = false;
         this.selectedCountryCode = 'us';
         this.countriesLanguages = {
@@ -1308,7 +1315,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
       _createClass(ArticleModalComponent, [{
         key: "ngOnInit",
-        value: function ngOnInit() {}
+        value: function ngOnInit() {
+          this.shownData = this.data;
+        }
       }, {
         key: "changeSelectedCountryCode",
         value: function changeSelectedCountryCode(value) {
@@ -1316,16 +1325,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           this.selectedCountryCode = value;
           this.translationLoading = true;
-          setTimeout(function () {
+          this.api.getTranslation(this.symbol, this.data.guid.content, this.countriesLanguages[this.selectedCountryCode]).toPromise().then(function (res) {
+            _this.shownData.title = res.title;
+            _this.shownData.description = res.description;
             _this.translationLoading = false;
-          }, 5000);
+          }).catch(function (err) {
+            return console.error(err);
+          });
+          setTimeout(function () {
+            if (_this.translationLoading) {
+              _this.translationLoading = false;
+            }
+          }, 10000);
         }
       }]);
 
       return ArticleModalComponent;
     }();
 
+    ArticleModalComponent.ctorParameters = function () {
+      return [{
+        type: _server_api_service__WEBPACK_IMPORTED_MODULE_2__["ServerApiService"]
+      }];
+    };
+
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], ArticleModalComponent.prototype, "data", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], ArticleModalComponent.prototype, "symbol", void 0);
     ArticleModalComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
       selector: 'app-article-modal',
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
@@ -1460,19 +1485,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! @angular/router */
     "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _server_api_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ../server-api.service */
+    "./src/app/server-api.service.ts");
 
     var DashboardComponent =
     /*#__PURE__*/
     function () {
-      function DashboardComponent(sidebarService, menuService, router, route) {
+      function DashboardComponent(sidebarService, menuService, router, route, api) {
         _classCallCheck(this, DashboardComponent);
 
         this.sidebarService = sidebarService;
         this.menuService = menuService;
         this.router = router;
         this.route = route;
+        this.api = api;
         this.collapsed = false;
         this.items = [];
+        this.panelLoading = false;
       }
 
       _createClass(DashboardComponent, [{
@@ -1500,13 +1533,31 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.popover.hide();
           this.router.navigateByUrl(symbolUrl).then(function (val) {
             _this2.route.url.subscribe(function (paths) {
-              return _this2.symbol = paths[0].path;
+              _this2.symbol = paths[0].path;
+
+              _this2.changeData(_this2.symbol);
             }, function (err) {
               return _this2.symbol = null;
             });
 
             _this2.sidebarService.expand();
           });
+        }
+      }, {
+        key: "changeData",
+        value: function changeData(symbol) {
+          var _this3 = this;
+
+          this.panelLoading = true;
+          this.api.getData(symbol).toPromise().then(function (data) {
+            _this3.data = data;
+            _this3.panelLoading = false;
+          }).catch(function (err) {
+            return console.error(err);
+          });
+          setTimeout(function () {
+            return _this3.panelLoading = false;
+          }, 5000);
         }
       }]);
 
@@ -1522,6 +1573,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]
       }, {
         type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]
+      }, {
+        type: _server_api_service__WEBPACK_IMPORTED_MODULE_4__["ServerApiService"]
       }];
     };
 
@@ -1696,23 +1749,48 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @angular/core */
     "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _server_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../server-api.service */
+    "./src/app/server-api.service.ts");
 
     var MainPanelComponent =
     /*#__PURE__*/
     function () {
-      function MainPanelComponent() {
+      function MainPanelComponent(api) {
         _classCallCheck(this, MainPanelComponent);
+
+        this.api = api;
       }
 
       _createClass(MainPanelComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {}
+      }, {
+        key: "ngOnChanges",
+        value: function ngOnChanges(changes) {
+          var newData = changes.defaultData.currentValue;
+
+          if (newData != null) {
+            this.symbol = newData.symbolId;
+            this.stockDefault = newData.stock;
+            this.newsDefault = newData.news;
+          }
+        }
       }]);
 
       return MainPanelComponent;
     }();
 
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], MainPanelComponent.prototype, "symbol", void 0);
+    MainPanelComponent.ctorParameters = function () {
+      return [{
+        type: _server_api_service__WEBPACK_IMPORTED_MODULE_2__["ServerApiService"]
+      }];
+    };
+
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], MainPanelComponent.prototype, "defaultData", void 0);
     MainPanelComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
       selector: 'app-main-panel',
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
@@ -1813,50 +1891,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           score: 'Score'
         };
         this.sortDirection = _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbSortDirection"].NONE;
-        this.data = [{
-          data: {
-            link: "https://finance.yahoo.com/m/56ea6664-ec7d-3bc2-b550-082832aa3313/top-3-mutual-funds-that-hold.html?.tsrc=rss",
-            // tslint:disable-next-line: max-line-length
-            description: "The top three mutual fund holders of Alphabet Inc. (GOOG/GOOGL) stock include the Vanguard Total Stock Market Index Fund, Vanguard 500 Index Fund, and the American Funds Growth Fund of America.  Together, the mutual funds own more than 5% of Alphabet's outstanding shares.  Alphabet became the parent holding company for Google on October 2, 2015.",
-            guid: {
-              isPermaLink: false,
-              content: '56ea6664-ec7d-3bc2-b550-082832aa3313'
-            },
-            title: 'Top 3 Mutual Funds that Hold Google Stock',
-            pubDate: new Date('Jan 5, 2020, 3:55:27 PM'),
-            score: -1
-          }
-        }, {
-          data: {
-            link: "https://finance.yahoo.com/m/e2fa9bbd-bf49-3284-8c5d-f194f6ee9a00/investors-are-misplacing.html?.tsrc=rss",
-            description: 'Imported oil has significantly less effect on the American economy than it did only a few years ago.',
-            guid: {
-              isPermaLink: false,
-              content: 'e2fa9bbd-bf49-3284-8c5d-f194f6ee9a00'
-            },
-            title: 'Investors are misplacing threats to the U.S. stock market',
-            pubDate: new Date('Jan 4, 2020, 5:18:00 PM'),
-            score: 0
-          }
-        }, {
-          data: {
-            link: "https://finance.yahoo.com/news/apple-shares-end-years-discount-150000043.html?.tsrc=rss",
-            // tslint:disable-next-line: max-line-length
-            description: "(Bloomberg) -- Apple Inc. has gotten little respect from equity investors. Until now.For the first time since 2011, shares of the iPhone maker have traded at a higher price-earnings ratio than the S&P 500 for months amid a year that saw the stock?s valuation almost double. It?s a reversal from the previous nine years, when concerns over a lack of product innovation kept the stock at a persistent discount to the market.Credit the shift in sentiment to Apple?s focus on tapping an ecosystem of nearly 1.5 billion users to generate a steady stream of profit. The increasing contribution from services like iCloud storage and Apple Music is making its business more stable and therefore deserving of a higher multiple, according to Gene Munster, a long-time Apple analyst and founder of Loup Ventures.?Investors are slowly getting more comfortable with the concept that a company that has a combination of software, hardware and services can be a dependable business,? Munster said.Indeed, going by analyst estimates, Apple?s earnings are poised to increase every quarter over the next three years. Such a streak of uninterrupted growth hasn?t occurred since 2012, data compiled by Bloomberg show. Profits will jump 10% in fiscal 2020 and maintain that pace of growth during the next two years.The prospect of steady growth is one reason that investors are willing to pay up for Apple shares even after its earnings fell two quarters in a row last year. After an 86% gain in 2019, the stock is trading at 25 times last year?s earnings, the highest level since 2008. That compares with a multiple of 21.7 for the S&P 500.The rally has helped Apple close the gap with tech giants such as Facebook Inc. But it still trails Alphabet Inc. at 31 times earnings in the past 12 months and Microsoft Corp. at 32. Munster predicts Apple?s multiple will continue to rise as more investors embrace the company?s expansion beyond smartphones.Software companies typically command higher multiples because customers commit to purchase services for longer periods of time, making sales more predictable. Apple bulls argue its vast user base provides a similar recurring revenue stream.The magnitude of Apple?s rally in 2019 has raised concern that the stock is due for a pullback. Seven of the 49 analysts tracked by Bloomberg that cover Apple have sell ratings, the most in at least nine years. At Friday?s close, the stock was already 10% above the average Wall Street price target.Apple?s continued reliance on iPhones for at least half its revenue is one bearish argument. Price tags of as much as $1,000 or more make the company vulnerable to economic slowdowns. Profit fell in 2016 and again in the middle of last year partly because of weakening demand in China.The share of revenue generated by the iPhone has been shrinking in recent years, though, the result of slowing smartphone sales and the ever-expanding portfolio of services. In addition to mainstays such as the App Store and AppleCare subscriptions, the company has debuted the TV+ streaming service along with Arcade video game subscriptions.Services revenue is expected to rise to $54 billion in fiscal 2020 and account for a fifth of the company?s total sales, up from 18% at the end of 2019, according to analyst data compiled by Bloomberg.Apple?s services and the success of wearables like AirPods and the Apple Watch are making investors more comfortable paying up for the stock, according to Kevin Walkush, a portfolio manager at Jensen Investment Management Inc., which owns Apple shares.?The services business has really moved forward? and wearables ?have really strong growth,? he said in an interview. ?If you step back, you see all these different opportunities to grow but also to increase their ecosystem and the stickiness of that ecosystem due to services.?&#92;--With assistance from Mark Gurman.To contact the reporter on this story: Jeran Wittenstein in San Francisco at jwittenstei1@bloomberg.netTo contact the editors responsible for this story: Catherine Larkin at clarkin4@bloomberg.net, Lu WangFor more articles like this, please visit us at bloomberg.com\xA92020 Bloomberg L.P.",
-            guid: {
-              isPermaLink: false,
-              content: 'c128d8ef-c4d1-3bea-ad2e-33978c7181fd'
-            },
-            title: 'Apple Shares End Years of Discount as Earnings Risk Seen Waning',
-            pubDate: new Date('Jan 4, 2020, 4:00:00 PM')
-          }
-        }];
         this.dataSource = this.dataSourceBuilder.create(this.data);
       }
 
       _createClass(NewsTableComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {}
+      }, {
+        key: "ngOnChanges",
+        value: function ngOnChanges(changes) {
+          var newData = changes.defaultData.currentValue;
+
+          if (newData != null) {
+            this.data = newData.map(function (d) {
+              d.pubDate = new Date(d.pubDate);
+              return {
+                data: d
+              };
+            });
+            this.dataSource = this.dataSourceBuilder.create(this.data);
+          }
+        }
       }, {
         key: "updateSort",
         value: function updateSort(sortRequest) {
@@ -1877,7 +1932,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function articleClicked(object) {
           this.dialogService.open(_article_modal_article_modal_component__WEBPACK_IMPORTED_MODULE_3__["ArticleModalComponent"], {
             context: {
-              data: object
+              data: object,
+              symbol: this.symbol
             }
           });
         }
@@ -1892,51 +1948,46 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "refreshNews",
         value: function refreshNews() {
-          var _this3 = this;
+          var _this4 = this;
 
           this.newsLoading = true;
           this.api.getNews(this.symbol).toPromise().then(function (data) {
-            console.log('News fetched!');
-            console.log(data);
-            _this3.data = data.map(function (d) {
+            _this4.data = data.map(function (d) {
               d.pubDate = new Date(d.pubDate);
               return {
                 data: d
               };
             });
-            console.log(_this3.data);
-            _this3.dataSource = _this3.dataSourceBuilder.create(_this3.data);
-            _this3.newsLoading = false;
+            _this4.dataSource = _this4.dataSourceBuilder.create(_this4.data);
+            _this4.newsLoading = false;
           }).catch(function (err) {
             return console.error(err);
           });
           setTimeout(function () {
-            return _this3.newsLoading = false;
+            return _this4.newsLoading = false;
           }, 5000);
         }
       }, {
         key: "refreshScore",
         value: function refreshScore(row) {
-          var _this4 = this;
+          var _this5 = this;
 
           this.scoreLoading = true;
           var res = this.api.getScore(this.symbol, row.guid.content).toPromise().then(function (r) {
-            console.log('data, ', _this4.data);
-            _this4.data = _this4.data.map(function (article) {
+            _this5.data = _this5.data.map(function (article) {
               if (row.guid.content === article.data.guid.content) {
                 article.data.score = r.sentiment.document.score;
               }
 
               return article;
             });
-            console.log(_this4.data);
-            _this4.dataSource = _this4.dataSourceBuilder.create(_this4.data);
-            _this4.scoreLoading = false;
+            _this5.dataSource = _this5.dataSourceBuilder.create(_this5.data);
+            _this5.scoreLoading = false;
           }).catch(function (err) {
             return console.error(err);
           });
           setTimeout(function () {
-            return _this4.scoreLoading = false;
+            return _this5.scoreLoading = false;
           }, 10000);
         }
       }]);
@@ -1955,6 +2006,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     };
 
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], NewsTableComponent.prototype, "symbol", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], NewsTableComponent.prototype, "defaultData", void 0);
     NewsTableComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
       selector: 'app-news-table',
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
@@ -2035,6 +2087,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "getData",
         value: function getData(symbol) {
           return this.http.get("/api/data?symbol=".concat(symbol, "&ng=1"));
+        }
+      }, {
+        key: "getTranslation",
+        value: function getTranslation(symbol, newId, language) {
+          return this.http.get("/api/translate?symbol=".concat(symbol, "&id=").concat(newId, "&lang=").concat(language, "&ng=1"));
         }
       }]);
 
@@ -2137,29 +2194,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "ngOnInit",
         value: function ngOnInit() {}
       }, {
+        key: "ngOnChanges",
+        value: function ngOnChanges(changes) {
+          var newData = changes.defaultData.currentValue;
+
+          if (newData != null) {
+            this.stockData = this.parseStockData(newData);
+            this.updateChart();
+          }
+        }
+      }, {
         key: "refreshStock",
         value: function refreshStock() {
-          var _this5 = this;
+          var _this6 = this;
 
           this.stockLoading = true;
           this.api.getStock(this.symbol).toPromise().then(function (data) {
-            console.log('Stock Data fetched!');
-            _this5.stockData = _this5.parseStockData(data);
+            _this6.stockData = _this6.parseStockData(data);
 
-            _this5.updateChart();
+            _this6.updateChart();
 
-            _this5.stockLoading = false;
+            _this6.stockLoading = false;
           }).catch(function (err) {
             return console.error(err);
           });
           setTimeout(function () {
-            return _this5.stockLoading = false;
+            return _this6.stockLoading = false;
           }, 5000);
         }
       }, {
         key: "updateChart",
         value: function updateChart() {
-          console.log(this.stockData);
           var dataLabels = this.stockData.map(function (d) {
             return d.t;
           });
@@ -2212,7 +2277,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               }
             }
           };
-          console.log(this.config);
           this.chart = new chart_js__WEBPACK_IMPORTED_MODULE_2__["Chart"]('realtime', this.config);
         }
       }, {
@@ -2238,6 +2302,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     };
 
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], StockChartComponent.prototype, "symbol", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], StockChartComponent.prototype, "defaultData", void 0);
     StockChartComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
       selector: 'app-stock-chart',
       template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
