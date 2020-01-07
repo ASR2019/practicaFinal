@@ -1,13 +1,11 @@
 package asr.proyectoFinal.models;
 
-import java.util.Date;
-
 public class Candle {
-	private Date date;
+	private String date;
 	private float open, high, low, close;
 	private int volume;
 
-	public Candle(Date date, float open, float high, float low, float close, int volume) {
+	public Candle(String date, float open, float high, float low, float close, int volume) {
 		this.setDate(date);
 		this.setOpen(open);
 		this.setHigh(high);
@@ -16,11 +14,11 @@ public class Candle {
 		this.setVolume(volume);
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 	
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	

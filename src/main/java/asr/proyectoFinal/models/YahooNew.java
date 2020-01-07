@@ -1,7 +1,5 @@
 package asr.proyectoFinal.models;
 
-import java.util.Date;
-
 public class YahooNew {
     // Attributes
     private String link;
@@ -9,7 +7,7 @@ public class YahooNew {
     private String translatedDescription;
     private Guid guid;
     private String title;
-    private Date pubDate;
+    private String pubDate;
     private Double score;
 
     // INNER CLASS
@@ -52,11 +50,11 @@ public class YahooNew {
 		this.link = link;
 	}
 
-	public Date getPubDate() {
+	public String getPubDate() {
 		return pubDate;
 	}
 
-	public void setPubDate(Date pubDate) {
+	public void setPubDate(String pubDate) {
 		this.pubDate = pubDate;
 	}
 
