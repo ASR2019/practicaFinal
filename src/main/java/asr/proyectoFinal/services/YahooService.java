@@ -21,45 +21,7 @@ import java.net.URL;
 public class YahooService {
 
     private static final String API_ENDPOINT = "https://feeds.finance.yahoo.com/rss/2.0/headline";
-    // public static void main(String args[]) {
-    //     try {
-    //         ArrayList<YahooNew> list = YahooService.getNewsFeed("GOOG");
-    //         //System.out.printl(new Gson.toJson(list));
-    //         Iterator it = list.iterator();
-    //         YahooNew aux = new YahooNew();
-    //         ArrayList news = new ArrayList();
-    //         while (it.hasNext())	{
-    //         	aux = (YahooNew) it.next();
-    //         	news.add(aux);
-    //         	//System.out.println(aux.getLink());
-    //         }
-            
-    //         FileWriter csvWriter = new FileWriter("news.csv");
-    //         AnalysisResults analisis;
-    //         YahooNew yahooNew;
-    //         Double score;
-    //         Date date;
-    //         for (Object rowData : news) {
-    //         	yahooNew = (YahooNew) rowData;
-    //         	date = yahooNew.getPubDate();
-            	
-    //         	analisis = NLUService.analisisSentimientoURL(yahooNew.getLink());
-    //         	score = analisis.getSentiment().getDocument().getScore();
-    //         	//System.out.println(score);
-            	
-    //             csvWriter.append(""+date);
-    //             csvWriter.append(",");
-    //             csvWriter.append(""+score);
-    //             csvWriter.append("\n");
-    //         }
-
-    //         csvWriter.flush();
-    //         csvWriter.close();
-    //     } catch(Exception e) {
-    //         e.printStackTrace();
-    //     }
-    // }
-
+    
     // TODO Throw custom exception
     public static String getRawNewsFeed(String symbol) throws IOException {
 
