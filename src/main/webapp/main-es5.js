@@ -2069,29 +2069,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ServerApiService, [{
         key: "getStock",
         value: function getStock(symbol) {
-          var result = this.http.get("/api/stock?symbol=".concat(symbol, "&ng=1")); // result.toPromise().then(data => console.log(data));
+          var result = this.http.get("api/stock?symbol=".concat(symbol, "&ng=1")); // result.toPromise().then(data => console.log(data));
 
           return result;
         }
       }, {
         key: "getNews",
         value: function getNews(symbol) {
-          return this.http.get("/api/news?symbol=".concat(symbol, "&ng=1"));
+          return this.http.get("api/news?symbol=".concat(symbol, "&ng=1"));
         }
       }, {
         key: "getScore",
         value: function getScore(symbol, newId) {
-          return this.http.get("/api/score?symbol=".concat(symbol, "&id=").concat(newId, "&ng=1"));
+          return this.http.get("api/score?symbol=".concat(symbol, "&id=").concat(newId, "&ng=1"));
         }
       }, {
         key: "getData",
         value: function getData(symbol) {
-          return this.http.get("/api/data?symbol=".concat(symbol, "&ng=1"));
+          return this.http.get("api/data?symbol=".concat(symbol, "&ng=1"));
         }
       }, {
         key: "getTranslation",
         value: function getTranslation(symbol, newId, language) {
-          return this.http.get("/api/translate?symbol=".concat(symbol, "&id=").concat(newId, "&lang=").concat(language, "&ng=1"));
+          return this.http.get("api/translate?symbol=".concat(symbol, "&id=").concat(newId, "&lang=").concat(language, "&ng=1"));
         }
       }]);
 
