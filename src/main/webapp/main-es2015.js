@@ -370,7 +370,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<nb-card>\n    <nb-card-header>\n      News about {{ this.symbol }}\n      <nb-icon icon=\"sync\" (click)=\"refreshNews()\" style=\"margin-left: 98%;\"></nb-icon>\n    </nb-card-header>\n    <nb-card-body [nbSpinner]=\"newsLoading\">\n\n        <label class=\"search-label\" for=\"search\">Search:</label>\n        <input type=\"text\" nbInput [nbFilterInput]=\"dataSource\" id=\"search\" placeholder=\"Search term...\">\n    \n        <table [nbTreeGrid]=\"dataSource\" [nbSort]=\"dataSource\" (sort)=\"updateSort($event)\">\n    \n          <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\n          <tr nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"></tr>\n    \n          <ng-container *ngFor=\"let column of allColumns; let index = index\" [nbTreeGridColumnDef]=\"column\">\n            <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\n              {{ allColumnHeaders[column] }}\n            </th>\n            <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" (click)=\"articleClicked(row.data);\" style=\"cursor: pointer;\">\n              <div *ngIf=\"column === 'score'; else defaultCell\">\n                <div *ngIf=\"row.data[column] != null; else loadingScore;\">\n                  <nb-icon icon=\"star\" [ngStyle]=\"{'color': getColorFromScore(row.data[column])}\"></nb-icon>\n                  {{ (row.data[column] | percent:'.2') || '-' }}\n                </div>\n\n                <ng-template #loadingScore>\n                  <nb-icon icon=\"sync\" (click)=\"refreshScores()\"></nb-icon>\n                </ng-template>\n              </div>\n              <ng-template #defaultCell>\n                {{ row.data[column] || '-' }}\n              </ng-template>\n            </td>\n          </ng-container>\n    \n        </table>\n    </nb-card-body>\n</nb-card>");
+/* harmony default export */ __webpack_exports__["default"] = ("<nb-card>\n    <nb-card-header>\n      News about {{ this.symbol }}\n      <nb-icon icon=\"sync\" (click)=\"refreshNews()\" style=\"margin-left: 98%;\"></nb-icon>\n    </nb-card-header>\n    <nb-card-body [nbSpinner]=\"newsLoading\">\n\n        <label class=\"search-label\" for=\"search\">Search:</label>\n        <input type=\"text\" nbInput [nbFilterInput]=\"dataSource\" id=\"search\" placeholder=\"Search term...\">\n    \n        <table [nbTreeGrid]=\"dataSource\" [nbSort]=\"dataSource\" (sort)=\"updateSort($event)\">\n    \n          <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\n          <tr nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"></tr>\n    \n          <ng-container *ngFor=\"let column of allColumns; let index = index\" [nbTreeGridColumnDef]=\"column\">\n            <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\n              {{ allColumnHeaders[column] }}\n            </th>\n            <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" (click)=\"articleClicked(row.data);\" style=\"cursor: pointer;\">\n              <div *ngIf=\"column === 'score'; else defaultCell\">\n                <div *ngIf=\"row.data[column] != null; else loadingScore;\">\n                  <nb-icon icon=\"star\" [ngStyle]=\"{'color': getColorFromScore(row.data[column])}\"></nb-icon>\n                  {{ (row.data[column] | percent:'.2') || '-' }}\n                </div>\n\n                <ng-template #loadingScore>\n                  <nb-icon icon=\"sync\" (click)=\"refreshScore(row.data)\"></nb-icon>\n                </ng-template>\n              </div>\n              <ng-template #defaultCell>\n                {{ row.data[column] || '-' }}\n              </ng-template>\n            </td>\n          </ng-container>\n    \n        </table>\n    </nb-card-body>\n</nb-card>");
 
 /***/ }),
 
@@ -716,6 +716,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @nebular/theme */ "./node_modules/@nebular/theme/fesm2015/index.js");
 /* harmony import */ var _nebular_eva_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @nebular/eva-icons */ "./node_modules/@nebular/eva-icons/fesm2015/index.js");
 /* harmony import */ var _dashboard_dashboard_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./dashboard/dashboard.module */ "./src/app/dashboard/dashboard.module.ts");
+/* harmony import */ var _server_api_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./server-api.service */ "./src/app/server-api.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+
+
 
 
 
@@ -740,9 +744,12 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _nebular_eva_icons__WEBPACK_IMPORTED_MODULE_7__["NbEvaIconsModule"],
             _nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbSidebarModule"].forRoot(),
             _nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbMenuModule"].forRoot(),
-            _dashboard_dashboard_module__WEBPACK_IMPORTED_MODULE_8__["DashboardModule"]
+            _dashboard_dashboard_module__WEBPACK_IMPORTED_MODULE_8__["DashboardModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HttpClientModule"]
         ],
-        providers: [],
+        providers: [
+            _server_api_service__WEBPACK_IMPORTED_MODULE_9__["ServerApiService"]
+        ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
     })
 ], AppModule);
@@ -1088,14 +1095,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @nebular/theme */ "./node_modules/@nebular/theme/fesm2015/index.js");
 /* harmony import */ var _article_modal_article_modal_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../article-modal/article-modal.component */ "./src/app/article-modal/article-modal.component.ts");
+/* harmony import */ var _server_api_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../server-api.service */ "./src/app/server-api.service.ts");
+
 
 
 
 
 let NewsTableComponent = class NewsTableComponent {
-    constructor(dataSourceBuilder, dialogService) {
+    constructor(dataSourceBuilder, dialogService, api) {
         this.dataSourceBuilder = dataSourceBuilder;
         this.dialogService = dialogService;
+        this.api = api;
         this.newsLoading = false;
         this.scoreLoading = false;
         this.allColumns = ['pubDate', 'title', 'score'];
@@ -1144,7 +1154,6 @@ let NewsTableComponent = class NewsTableComponent {
                     },
                     title: 'Apple Shares End Years of Discount as Earnings Risk Seen Waning',
                     pubDate: new Date('Jan 4, 2020, 4:00:00 PM'),
-                    score: 1
                 },
             }
         ];
@@ -1177,20 +1186,43 @@ let NewsTableComponent = class NewsTableComponent {
     }
     refreshNews() {
         this.newsLoading = true;
-        setTimeout(() => {
+        this.api.getNews(this.symbol).toPromise().then((data) => {
+            console.log('News fetched!');
+            console.log(data);
+            this.data = data.map((d) => {
+                d.pubDate = new Date(d.pubDate);
+                return { data: d };
+            });
+            console.log(this.data);
+            this.dataSource = this.dataSourceBuilder.create(this.data);
             this.newsLoading = false;
-        }, 5000);
+        })
+            .catch(err => console.error(err));
+        setTimeout(() => this.newsLoading = false, 5000);
     }
-    refreshScores() {
+    refreshScore(row) {
         this.scoreLoading = true;
-        setTimeout(() => {
+        const res = this.api.getScore(this.symbol, row.guid.content).toPromise()
+            .then((r) => {
+            console.log('data, ', this.data);
+            this.data = this.data.map((article) => {
+                if (row.guid.content === article.data.guid.content) {
+                    article.data.score = r.sentiment.document.score;
+                }
+                return article;
+            });
+            console.log(this.data);
+            this.dataSource = this.dataSourceBuilder.create(this.data);
             this.scoreLoading = false;
-        }, 5000);
+        })
+            .catch(err => console.error(err));
+        setTimeout(() => this.scoreLoading = false, 10000);
     }
 };
 NewsTableComponent.ctorParameters = () => [
     { type: _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbTreeGridDataSourceBuilder"] },
-    { type: _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbDialogService"] }
+    { type: _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbDialogService"] },
+    { type: _server_api_service__WEBPACK_IMPORTED_MODULE_4__["ServerApiService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
@@ -1202,6 +1234,54 @@ NewsTableComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./news-table.component.scss */ "./src/app/news-table/news-table.component.scss")).default]
     })
 ], NewsTableComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/server-api.service.ts":
+/*!***************************************!*\
+  !*** ./src/app/server-api.service.ts ***!
+  \***************************************/
+/*! exports provided: ServerApiService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServerApiService", function() { return ServerApiService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+
+
+
+let ServerApiService = class ServerApiService {
+    constructor(http) {
+        this.http = http;
+    }
+    getStock(symbol) {
+        const result = this.http.get(`http://localhost:8080/practicaFinal/api/stock?symbol=${symbol}&ng=1`);
+        // result.toPromise().then(data => console.log(data));
+        return result;
+    }
+    getNews(symbol) {
+        return this.http.get(`http://localhost:8080/practicaFinal/api/news?symbol=${symbol}&ng=1`);
+    }
+    getScore(symbol, newId) {
+        return this.http.get(`http://localhost:8080/practicaFinal/api/score?symbol=${symbol}&id=${newId}&ng=1`);
+    }
+    getData(symbol) {
+        return this.http.get(`http://localhost:8080/practicaFinal/api/data?symbol=${symbol}&ng=1`);
+    }
+};
+ServerApiService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
+];
+ServerApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], ServerApiService);
 
 
 
@@ -1234,32 +1314,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Chart.js");
 /* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(chart_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _server_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../server-api.service */ "./src/app/server-api.service.ts");
+
 
 
 
 let StockChartComponent = class StockChartComponent {
-    constructor() {
+    constructor(api) {
+        this.api = api;
         this.stockLoading = false;
     }
     ngOnInit() {
-        const config = {
-            type: 'line',
+    }
+    refreshStock() {
+        this.stockLoading = true;
+        this.api.getStock(this.symbol).toPromise().then(data => {
+            console.log('Stock Data fetched!');
+            this.stockData = this.parseStockData(data);
+            this.updateChart();
+            this.stockLoading = false;
+        })
+            .catch(err => console.error(err));
+        setTimeout(() => this.stockLoading = false, 5000);
+    }
+    updateChart() {
+        console.log(this.stockData);
+        const dataLabels = this.stockData.map((d) => d.t);
+        const dataValues = this.stockData.map((d) => d.y);
+        this.config = {
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: dataLabels,
                 datasets: [{
                         label: this.symbol,
                         backgroundColor: '#3366ff',
                         borderColor: '#3366ff',
-                        data: [
-                            1,
-                            49,
-                            4,
-                            36,
-                            9,
-                            25,
-                            16
-                        ],
+                        data: dataValues,
                         fill: false,
+                        type: 'line',
+                        pointRadius: 0,
+                        lineTension: 0
                     }]
             },
             options: {
@@ -1274,31 +1367,42 @@ let StockChartComponent = class StockChartComponent {
                 },
                 scales: {
                     xAxes: [{
+                            type: 'time',
+                            distribution: 'series',
+                            time: {
+                                unit: 'day'
+                            },
                             display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Time'
+                            ticks: {
+                                source: 'auto'
                             }
                         }],
                     yAxes: [{
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Value'
+                                labelString: 'Closing price ($)'
                             }
                         }]
-                }
+                },
             }
         };
-        this.chart = new chart_js__WEBPACK_IMPORTED_MODULE_2__["Chart"]('realtime', config);
+        console.log(this.config);
+        this.chart = new chart_js__WEBPACK_IMPORTED_MODULE_2__["Chart"]('realtime', this.config);
     }
-    refreshStock() {
-        this.stockLoading = true;
-        setTimeout(() => {
-            this.stockLoading = false;
-        }, 5000);
+    parseStockData(data) {
+        const parsedData = data.map((d) => {
+            return {
+                t: new Date(d.date),
+                y: d.close
+            };
+        });
+        return parsedData;
     }
 };
+StockChartComponent.ctorParameters = () => [
+    { type: _server_api_service__WEBPACK_IMPORTED_MODULE_3__["ServerApiService"] }
+];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
 ], StockChartComponent.prototype, "symbol", void 0);

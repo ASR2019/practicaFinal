@@ -41,26 +41,30 @@ public class Controller extends HttpServlet {
 
 		// Get references for database
 		dbRefs = store.getReferences();
-
-		System.out.println(dbRefs);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		System.out.println(dbRefs);
-		
+	{		
 		// Response parameters
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
-		// Gson for JSON formatting
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		// TODO: Remove
+		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		// Get request parameters
 		String symbolString = request.getParameter("symbol");
 		String newId = request.getParameter("id");
 		String targetLanguage = request.getParameter("lang");
+		String angularClient = request.getParameter("ng");
+
+		// Gson for JSON formatting
+		Gson gson;
+		if(angularClient != null)
+			gson = new GsonBuilder().create();
+		else
+			gson = new GsonBuilder().setPrettyPrinting().create();
 
 		Symbol targetSymbol = null;
 
@@ -107,10 +111,16 @@ public class Controller extends HttpServlet {
 													   .filter(n -> n.getGuid().getContent().equals(newId))
 													   .findFirst()
 													   .get();
+
+					System.out.println("New found");
 										
 					AnalysisResults analysis = NLUService.sentimentAnalysis(targetNew);
 					
+					System.out.println("Analysis done");
+
 					targetNew.setScore(analysis.getSentiment().getDocument().getScore());
+
+					System.out.println("Score set");
 
 					out.println(gson.toJson(analysis));
 					

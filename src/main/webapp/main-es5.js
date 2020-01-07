@@ -423,7 +423,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<nb-card>\n    <nb-card-header>\n      News about {{ this.symbol }}\n      <nb-icon icon=\"sync\" (click)=\"refreshNews()\" style=\"margin-left: 98%;\"></nb-icon>\n    </nb-card-header>\n    <nb-card-body [nbSpinner]=\"newsLoading\">\n\n        <label class=\"search-label\" for=\"search\">Search:</label>\n        <input type=\"text\" nbInput [nbFilterInput]=\"dataSource\" id=\"search\" placeholder=\"Search term...\">\n    \n        <table [nbTreeGrid]=\"dataSource\" [nbSort]=\"dataSource\" (sort)=\"updateSort($event)\">\n    \n          <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\n          <tr nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"></tr>\n    \n          <ng-container *ngFor=\"let column of allColumns; let index = index\" [nbTreeGridColumnDef]=\"column\">\n            <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\n              {{ allColumnHeaders[column] }}\n            </th>\n            <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" (click)=\"articleClicked(row.data);\" style=\"cursor: pointer;\">\n              <div *ngIf=\"column === 'score'; else defaultCell\">\n                <div *ngIf=\"row.data[column] != null; else loadingScore;\">\n                  <nb-icon icon=\"star\" [ngStyle]=\"{'color': getColorFromScore(row.data[column])}\"></nb-icon>\n                  {{ (row.data[column] | percent:'.2') || '-' }}\n                </div>\n\n                <ng-template #loadingScore>\n                  <nb-icon icon=\"sync\" (click)=\"refreshScores()\"></nb-icon>\n                </ng-template>\n              </div>\n              <ng-template #defaultCell>\n                {{ row.data[column] || '-' }}\n              </ng-template>\n            </td>\n          </ng-container>\n    \n        </table>\n    </nb-card-body>\n</nb-card>";
+    __webpack_exports__["default"] = "<nb-card>\n    <nb-card-header>\n      News about {{ this.symbol }}\n      <nb-icon icon=\"sync\" (click)=\"refreshNews()\" style=\"margin-left: 98%;\"></nb-icon>\n    </nb-card-header>\n    <nb-card-body [nbSpinner]=\"newsLoading\">\n\n        <label class=\"search-label\" for=\"search\">Search:</label>\n        <input type=\"text\" nbInput [nbFilterInput]=\"dataSource\" id=\"search\" placeholder=\"Search term...\">\n    \n        <table [nbTreeGrid]=\"dataSource\" [nbSort]=\"dataSource\" (sort)=\"updateSort($event)\">\n    \n          <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\n          <tr nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"></tr>\n    \n          <ng-container *ngFor=\"let column of allColumns; let index = index\" [nbTreeGridColumnDef]=\"column\">\n            <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\n              {{ allColumnHeaders[column] }}\n            </th>\n            <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" (click)=\"articleClicked(row.data);\" style=\"cursor: pointer;\">\n              <div *ngIf=\"column === 'score'; else defaultCell\">\n                <div *ngIf=\"row.data[column] != null; else loadingScore;\">\n                  <nb-icon icon=\"star\" [ngStyle]=\"{'color': getColorFromScore(row.data[column])}\"></nb-icon>\n                  {{ (row.data[column] | percent:'.2') || '-' }}\n                </div>\n\n                <ng-template #loadingScore>\n                  <nb-icon icon=\"sync\" (click)=\"refreshScore(row.data)\"></nb-icon>\n                </ng-template>\n              </div>\n              <ng-template #defaultCell>\n                {{ row.data[column] || '-' }}\n              </ng-template>\n            </td>\n          </ng-container>\n    \n        </table>\n    </nb-card-body>\n</nb-card>";
     /***/
   },
 
@@ -1208,6 +1208,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _dashboard_dashboard_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! ./dashboard/dashboard.module */
     "./src/app/dashboard/dashboard.module.ts");
+    /* harmony import */
+
+
+    var _server_api_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    /*! ./server-api.service */
+    "./src/app/server-api.service.ts");
+    /* harmony import */
+
+
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    /*! @angular/common/http */
+    "./node_modules/@angular/common/fesm2015/http.js");
 
     var AppModule = function AppModule() {
       _classCallCheck(this, AppModule);
@@ -1217,8 +1229,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       declarations: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]],
       imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_3__["AppRoutingModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbThemeModule"].forRoot({
         name: 'default'
-      }), _nebular_eva_icons__WEBPACK_IMPORTED_MODULE_7__["NbEvaIconsModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbSidebarModule"].forRoot(), _nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbMenuModule"].forRoot(), _dashboard_dashboard_module__WEBPACK_IMPORTED_MODULE_8__["DashboardModule"]],
-      providers: [],
+      }), _nebular_eva_icons__WEBPACK_IMPORTED_MODULE_7__["NbEvaIconsModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbSidebarModule"].forRoot(), _nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbMenuModule"].forRoot(), _dashboard_dashboard_module__WEBPACK_IMPORTED_MODULE_8__["DashboardModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HttpClientModule"]],
+      providers: [_server_api_service__WEBPACK_IMPORTED_MODULE_9__["ServerApiService"]],
       bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
     })], AppModule);
     /***/
@@ -1776,15 +1788,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _article_modal_article_modal_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! ../article-modal/article-modal.component */
     "./src/app/article-modal/article-modal.component.ts");
+    /* harmony import */
+
+
+    var _server_api_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ../server-api.service */
+    "./src/app/server-api.service.ts");
 
     var NewsTableComponent =
     /*#__PURE__*/
     function () {
-      function NewsTableComponent(dataSourceBuilder, dialogService) {
+      function NewsTableComponent(dataSourceBuilder, dialogService, api) {
         _classCallCheck(this, NewsTableComponent);
 
         this.dataSourceBuilder = dataSourceBuilder;
         this.dialogService = dialogService;
+        this.api = api;
         this.newsLoading = false;
         this.scoreLoading = false;
         this.allColumns = ['pubDate', 'title', 'score'];
@@ -1829,8 +1848,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               content: 'c128d8ef-c4d1-3bea-ad2e-33978c7181fd'
             },
             title: 'Apple Shares End Years of Discount as Earnings Risk Seen Waning',
-            pubDate: new Date('Jan 4, 2020, 4:00:00 PM'),
-            score: 1
+            pubDate: new Date('Jan 4, 2020, 4:00:00 PM')
           }
         }];
         this.dataSource = this.dataSourceBuilder.create(this.data);
@@ -1877,19 +1895,49 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _this3 = this;
 
           this.newsLoading = true;
-          setTimeout(function () {
+          this.api.getNews(this.symbol).toPromise().then(function (data) {
+            console.log('News fetched!');
+            console.log(data);
+            _this3.data = data.map(function (d) {
+              d.pubDate = new Date(d.pubDate);
+              return {
+                data: d
+              };
+            });
+            console.log(_this3.data);
+            _this3.dataSource = _this3.dataSourceBuilder.create(_this3.data);
             _this3.newsLoading = false;
+          }).catch(function (err) {
+            return console.error(err);
+          });
+          setTimeout(function () {
+            return _this3.newsLoading = false;
           }, 5000);
         }
       }, {
-        key: "refreshScores",
-        value: function refreshScores() {
+        key: "refreshScore",
+        value: function refreshScore(row) {
           var _this4 = this;
 
           this.scoreLoading = true;
-          setTimeout(function () {
+          var res = this.api.getScore(this.symbol, row.guid.content).toPromise().then(function (r) {
+            console.log('data, ', _this4.data);
+            _this4.data = _this4.data.map(function (article) {
+              if (row.guid.content === article.data.guid.content) {
+                article.data.score = r.sentiment.document.score;
+              }
+
+              return article;
+            });
+            console.log(_this4.data);
+            _this4.dataSource = _this4.dataSourceBuilder.create(_this4.data);
             _this4.scoreLoading = false;
-          }, 5000);
+          }).catch(function (err) {
+            return console.error(err);
+          });
+          setTimeout(function () {
+            return _this4.scoreLoading = false;
+          }, 10000);
         }
       }]);
 
@@ -1901,6 +1949,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         type: _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbTreeGridDataSourceBuilder"]
       }, {
         type: _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbDialogService"]
+      }, {
+        type: _server_api_service__WEBPACK_IMPORTED_MODULE_4__["ServerApiService"]
       }];
     };
 
@@ -1914,6 +1964,92 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       /*! ./news-table.component.scss */
       "./src/app/news-table/news-table.component.scss")).default]
     })], NewsTableComponent);
+    /***/
+  },
+
+  /***/
+  "./src/app/server-api.service.ts":
+  /*!***************************************!*\
+    !*** ./src/app/server-api.service.ts ***!
+    \***************************************/
+
+  /*! exports provided: ServerApiService */
+
+  /***/
+  function srcAppServerApiServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ServerApiService", function () {
+      return ServerApiService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/common/http */
+    "./node_modules/@angular/common/fesm2015/http.js");
+
+    var ServerApiService =
+    /*#__PURE__*/
+    function () {
+      function ServerApiService(http) {
+        _classCallCheck(this, ServerApiService);
+
+        this.http = http;
+      }
+
+      _createClass(ServerApiService, [{
+        key: "getStock",
+        value: function getStock(symbol) {
+          var result = this.http.get("http://localhost:8080/practicaFinal/api/stock?symbol=".concat(symbol, "&ng=1")); // result.toPromise().then(data => console.log(data));
+
+          return result;
+        }
+      }, {
+        key: "getNews",
+        value: function getNews(symbol) {
+          return this.http.get("http://localhost:8080/practicaFinal/api/news?symbol=".concat(symbol, "&ng=1"));
+        }
+      }, {
+        key: "getScore",
+        value: function getScore(symbol, newId) {
+          return this.http.get("http://localhost:8080/practicaFinal/api/score?symbol=".concat(symbol, "&id=").concat(newId, "&ng=1"));
+        }
+      }, {
+        key: "getData",
+        value: function getData(symbol) {
+          return this.http.get("http://localhost:8080/practicaFinal/api/data?symbol=".concat(symbol, "&ng=1"));
+        }
+      }]);
+
+      return ServerApiService;
+    }();
+
+    ServerApiService.ctorParameters = function () {
+      return [{
+        type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]
+      }];
+    };
+
+    ServerApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+      providedIn: 'root'
+    })], ServerApiService);
     /***/
   },
 
@@ -1980,29 +2116,68 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var chart_js__WEBPACK_IMPORTED_MODULE_2___default =
     /*#__PURE__*/
     __webpack_require__.n(chart_js__WEBPACK_IMPORTED_MODULE_2__);
+    /* harmony import */
+
+
+    var _server_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../server-api.service */
+    "./src/app/server-api.service.ts");
 
     var StockChartComponent =
     /*#__PURE__*/
     function () {
-      function StockChartComponent() {
+      function StockChartComponent(api) {
         _classCallCheck(this, StockChartComponent);
 
+        this.api = api;
         this.stockLoading = false;
       }
 
       _createClass(StockChartComponent, [{
         key: "ngOnInit",
-        value: function ngOnInit() {
-          var config = {
-            type: 'line',
+        value: function ngOnInit() {}
+      }, {
+        key: "refreshStock",
+        value: function refreshStock() {
+          var _this5 = this;
+
+          this.stockLoading = true;
+          this.api.getStock(this.symbol).toPromise().then(function (data) {
+            console.log('Stock Data fetched!');
+            _this5.stockData = _this5.parseStockData(data);
+
+            _this5.updateChart();
+
+            _this5.stockLoading = false;
+          }).catch(function (err) {
+            return console.error(err);
+          });
+          setTimeout(function () {
+            return _this5.stockLoading = false;
+          }, 5000);
+        }
+      }, {
+        key: "updateChart",
+        value: function updateChart() {
+          console.log(this.stockData);
+          var dataLabels = this.stockData.map(function (d) {
+            return d.t;
+          });
+          var dataValues = this.stockData.map(function (d) {
+            return d.y;
+          });
+          this.config = {
             data: {
-              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+              labels: dataLabels,
               datasets: [{
                 label: this.symbol,
                 backgroundColor: '#3366ff',
                 borderColor: '#3366ff',
-                data: [1, 49, 4, 36, 9, 25, 16],
-                fill: false
+                data: dataValues,
+                fill: false,
+                type: 'line',
+                pointRadius: 0,
+                lineTension: 0
               }]
             },
             options: {
@@ -2017,38 +2192,50 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               },
               scales: {
                 xAxes: [{
+                  type: 'time',
+                  distribution: 'series',
+                  time: {
+                    unit: 'day'
+                  },
                   display: true,
-                  scaleLabel: {
-                    display: true,
-                    labelString: 'Time'
+                  ticks: {
+                    source: 'auto'
                   }
                 }],
                 yAxes: [{
                   display: true,
                   scaleLabel: {
                     display: true,
-                    labelString: 'Value'
+                    labelString: 'Closing price ($)'
                   }
                 }]
               }
             }
           };
-          this.chart = new chart_js__WEBPACK_IMPORTED_MODULE_2__["Chart"]('realtime', config);
+          console.log(this.config);
+          this.chart = new chart_js__WEBPACK_IMPORTED_MODULE_2__["Chart"]('realtime', this.config);
         }
       }, {
-        key: "refreshStock",
-        value: function refreshStock() {
-          var _this5 = this;
-
-          this.stockLoading = true;
-          setTimeout(function () {
-            _this5.stockLoading = false;
-          }, 5000);
+        key: "parseStockData",
+        value: function parseStockData(data) {
+          var parsedData = data.map(function (d) {
+            return {
+              t: new Date(d.date),
+              y: d.close
+            };
+          });
+          return parsedData;
         }
       }]);
 
       return StockChartComponent;
     }();
+
+    StockChartComponent.ctorParameters = function () {
+      return [{
+        type: _server_api_service__WEBPACK_IMPORTED_MODULE_3__["ServerApiService"]
+      }];
+    };
 
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()], StockChartComponent.prototype, "symbol", void 0);
     StockChartComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
