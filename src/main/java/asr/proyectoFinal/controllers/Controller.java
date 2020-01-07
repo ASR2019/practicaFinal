@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 
 import asr.proyectoFinal.models.Candle;
@@ -133,10 +134,20 @@ public class Controller extends HttpServlet {
 					break;
 				
 				case "/api/translate":
-					String content = request.getParameter("q");
-					String result = TranslatorService.translate(content, targetLanguage);
+					YahooNew targetNewTranslating = targetSymbol.getNews()
+													.stream()
+													.filter(n -> n.getGuid().getContent().equals(newId))
+													.findFirst()
+													.get();
+					String translatedTitle = TranslatorService.translate(targetNewTranslating.getTitle(), targetLanguage);
+					String translatedDescription = TranslatorService.translate(targetNewTranslating.getDescription(), targetLanguage);
 
-					out.println(gson.toJson(result));
+					JsonObject translation = new JsonObject();
+
+					translation.addProperty("title", translatedTitle);
+					translation.addProperty("description", translatedDescription);
+
+					out.println(gson.toJson(translation));
 			}
 
 			if(targetSymbol != null) {
