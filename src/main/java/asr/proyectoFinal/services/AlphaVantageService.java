@@ -334,14 +334,8 @@ public class AlphaVantageService {
 
     private static void setApiKey() {
         if (System.getenv("VCAP_SERVICES") != null) {
-            // When running in Bluemix, the VCAP_SERVICES env var will have the credentials
-            // for all bound/connected services
-            // Parse the VCAP JSON structure looking for cloudant.
-            JsonObject alphaVantageCredentials = VCAPHelper.getCloudCredentials("alpha_vantage");
-            if (alphaVantageCredentials == null) {
-                System.out.println("No Alpha Vantage service bound to this application");
-            }
-            API_KEY = alphaVantageCredentials.get("api_key").getAsString();
+            API_KEY = System.getenv("alpha_vantage");
+            System.out.println(API_KEY);
         } else {
             System.out.println("Running locally. Looking for credentials in alpha-vantage.properties");
             API_KEY = VCAPHelper.getLocalProperties("alpha-vantage.properties").getProperty("alphavantage_api");
